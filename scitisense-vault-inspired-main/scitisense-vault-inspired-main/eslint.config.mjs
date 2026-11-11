@@ -7,8 +7,12 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    ".next-backup-*/**",
+    ".reference/**",
+    "components/framer/**",
     "out/**",
     "build/**",
+    "next-env.d.ts",
   ]),
 ]);
 

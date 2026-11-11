@@ -23,7 +23,6 @@ export default function Hero() {
         <p>From the first question to a real-world solution. We bring AI research, technology, and human ingenuity together.</p>
         <div className="hero-actions">
           <GlassButton href="/services" label="Explore our expertise" variant="primary"/>
-          <GlassButton href="/contact" label="Build with us"/>
         </div>
         <span className="hero-motion-hint"><ArrowDown size={14} aria-hidden="true"/> Scroll to explore</span>
       </motion.div>

@@ -22,7 +22,7 @@ export function CounterFX({ value, suffix = "" }) {
     return <span className="counter-wrap" aria-label={`${value}${suffix}`}><span aria-hidden="true"><Counter from={reduced ? value : 0} to={value} duration={1.8} easing="smooth" decimals={0} prefix="" suffix={suffix} showThousandSep={false} tint={BRAND.ink} triggerMode="inView" sectionName="" htmlTag="span" font={{ fontSize: 52, fontWeight: 500, fontFamily: "inherit", letterSpacing: "-0.05em", lineHeight: "1em" }}/></span></span>;
 }
 export function HalftoneHands() {
-    return <div className="halftone-art" aria-hidden="true"><Hands theme={{ initial: "custom", switcher: false, vignette: false, scanlines: false }} custom={{ background: "#dbe9f0", inkA: "#284f87", inkB: "#7899ab", dark: false }} hands={{ sheetUrl: "/framer/halftone-hands.webp", width: 57, gap: 4 }} dots={{ density: 130, rowGap: 1.7 }} motion={{ glitch: false, shimmer: 25, speed: 0.65 }}/></div>;
+    return <div className="halftone-art" aria-hidden="true"><Hands theme={{ initial: "custom", switcher: false, vignette: false, scanlines: false }} custom={{ background: "#dbe9f0", inkA: "#315b8d", inkB: "#7899ab", dark: false }} hands={{ sheetUrl: "/framer/halftone-hands.webp", width: 48, centerY: 50, gap: 4 }} dots={{ density: 155, rowGap: 1.65, size: 88 }} motion={{ loop: 16, speed: 0.9, drift: 65, breathe: 60, roll: 45, morph: true, glitch: false, shimmer: 35, intro: true }}/></div>;
 }
 export function ParticleText() {
     const reduced = useReducedMotion();

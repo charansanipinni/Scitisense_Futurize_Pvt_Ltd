@@ -1,29 +1,60 @@
 "use client";
-import { useCallback } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import CompanyBrand from "./CompanyBrand";
-import LiquidPillNavbar from "./framer/LiquidPillNavbar";
-import { BRAND } from "@/lib/theme";
-const links = [
-    { label: "Home", link: "/" },
-    { label: "Services", link: "/services" },
-    { label: "Announcements", link: "/stories" },
-    { label: "About", link: "/aboutus" },
-    { label: "Contact", link: "/contact" },
+
+const serviceLinks = [
+  ["Research & development", "/services/research-development"],
+  ["Training & workshops", "/services/training-workshops"],
+  ["Consultancy services", "/services/consultancy-services"],
+  ["Internships", "/services/internships"],
 ];
+const links = [
+  ["Announcements", "/stories"],
+  ["About", "/aboutus"],
+  ["Contact", "/contact"],
+];
+
 export default function NavbarLight() {
-    const pathname = usePathname();
-    const router = useRouter();
-    const navigate = useCallback((href) => router.push(href), [router]);
-    return <header className="site-header simple-site-header">
+  const pathname = usePathname();
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const menuRef = useRef(null);
+  const triggerRef = useRef(null);
+
+  useEffect(() => {
+    const onPointerDown = (event) => {
+      if (!menuRef.current?.contains(event.target)) setServicesOpen(false);
+    };
+    const onKeyDown = (event) => {
+      if (event.key === "Escape" && menuRef.current?.querySelector("#services-dropdown:not([hidden])")) {
+        setServicesOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
+
+  return <header className="site-header simple-site-header">
     <a href="#main-content" className="skip-link">Skip to content</a>
     <CompanyBrand />
-    <div className="simple-desktop-navigation">
-      <LiquidPillNavbar key={pathname} items={links.map(item => ({ title: item.label, link: item.link }))} active={Math.max(1, links.findIndex(item => item.link === pathname) + 1)} matchPage={true} color="#dbe9f0" font={{ fontSize: 13, fontWeight: 500 }} itemPadding="11px 16px" pill={{ fill: "rgba(188, 213, 232, 0.08)", padding: "4px", gap: 2, shadow: "none" }} indicator={{ fill: BRAND.hero, text: BRAND.ink, gloss: 25 }} hover={{ text: BRAND.page }} liquid={{ amount: 60, wobble: 35, speed: 1.2, delay: 0 }} onNavigate={navigate}/>
-    </div>
-    <nav className="simple-mobile-navigation" aria-label="Main navigation">
-      {links.map(item => <Link key={item.link} href={item.link} aria-current={pathname === item.link ? "page" : undefined}>{item.label}</Link>)}
+    <nav className="site-nav" aria-label="Main navigation">
+      <Link href="/" aria-current={pathname === "/" ? "page" : undefined} onClick={() => setServicesOpen(false)}>Home</Link>
+      <div className="site-nav-services" ref={menuRef}>
+        <Link ref={triggerRef} href="/services" aria-expanded={servicesOpen} aria-controls="services-dropdown" aria-current={pathname.startsWith("/services") ? "page" : undefined} onClick={() => setServicesOpen(true)}>
+          Services <ChevronDown size={15} aria-hidden="true" className={servicesOpen ? "is-open" : ""}/>
+        </Link>
+        <div id="services-dropdown" className="site-services-dropdown" role="group" aria-label="Choose a service" hidden={!servicesOpen}>
+          {serviceLinks.map(([label, href]) => <Link href={href} key={href} onClick={() => setServicesOpen(false)}>{label}</Link>)}
+        </div>
+      </div>
+      {links.map(([label, href]) => <Link href={href} key={href} aria-current={pathname === href ? "page" : undefined} onClick={() => setServicesOpen(false)}>{label}</Link>)}
     </nav>
   </header>;
 }

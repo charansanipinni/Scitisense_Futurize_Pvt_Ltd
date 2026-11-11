@@ -2,7 +2,6 @@ import ServiceDetailHero from "@/components/ServiceDetailHero";
 import ServiceFeatureGrid from "@/components/ServiceFeatureGrid";
 import ServiceDeepDive from "@/components/ServiceDeepDive";
 import CTABand from "@/components/CTABand";
-import Footer from "@/components/Footer";
 export const metadata = { title: "IT Asset Management — Scitisense Futurize" };
 const FEATURES = [
     "Asset Lifecycle Management",
@@ -72,6 +71,5 @@ export default function ITAMPage() {
       <GroupLabel label="Software Asset Management"/>
       <ServiceDeepDive sections={SOFTWARE_SECTIONS}/>
       <CTABand />
-      <Footer />
     </>);
 }

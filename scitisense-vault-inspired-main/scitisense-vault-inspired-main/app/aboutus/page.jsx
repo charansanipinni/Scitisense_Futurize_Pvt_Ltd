@@ -1,7 +1,6 @@
 "use client";
 import { motion, useReducedMotion } from "motion/react";
-import { Lightbulb, ShieldCheck, Layers, Zap, FlaskConical, HeartPulse } from "lucide-react";
-import Footer from "@/components/Footer";
+import { Lightbulb, ShieldCheck, Layers, Zap } from "lucide-react";
 import { hexToRgb } from "@/lib/services-data";
 import Image from "next/image";
 const ease = [0.22, 1, 0.36, 1];
@@ -17,9 +16,8 @@ function fadeUp(noMotion, delay = 0) {
 }
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const DESCRIPTION_PARAGRAPHS = [
-    "At Scitisense Futurize Private Limited, we are dedicated to accelerating the pace of innovation. As a recognized leader in Scientific Research & Development and Information Technology, we provide the intellectual infrastructure and technological solutions necessary to solve complex challenges in modern science and healthcare.",
-    "We function as a strategic partner to our clients, offering end-to-end consultation and R&D services across various scientific disciplines. By integrating rigorous scientific methodology with advanced IT frameworks, we empower organizations to modernize their operations and achieve breakthrough results.",
-    "We exist at the intersection of Research and Technology. In an era where data is the new currency of healthcare and innovation is the engine of growth, Scitisense Futurize serves as a catalyst for change. We don't just consult — we co-innovate. Whether it is deep-tech scientific research or deploying next-gen Medical IT systems, our goal is to future-proof your endeavors.",
+    "Scitisense Futurize brings scientific research and intelligent technology together to solve practical challenges in healthcare and industry.",
+    "We work with partners from the first research question through prototyping and implementation, combining rigorous methods with hands-on engineering.",
 ];
 const PARTNER_CARDS = [
     {
@@ -45,20 +43,6 @@ const PARTNER_CARDS = [
         color: "#284f87",
         title: "Agile & Reliable",
         body: "We combine the agility of a startup with the reliability of a certified enterprise.",
-    },
-];
-const WHAT_WE_DO_CARDS = [
-    {
-        icon: FlaskConical,
-        color: "#284f87",
-        title: "Scientific R&D",
-        body: "We conduct and facilitate cutting-edge research, offering consultation for experimental design, data analysis, and product development across multiple scientific sectors.",
-    },
-    {
-        icon: HeartPulse,
-        color: "#284f87",
-        title: "Medical Information Technology",
-        body: "We digitize the healthcare experience, creating robust IT solutions that manage medical data, improve patient outcomes, and streamline clinical workflows.",
     },
 ];
 // ─── Card sub-component ───────────────────────────────────────────────────────
@@ -103,7 +87,7 @@ export default function AboutUs() {
       <main className="relative" style={{ backgroundColor: "transparent" }}>
 
         {/* ── Company description ──────────────────────────────────────────── */}
-        <section className="site-page-hero" style={{ paddingTop: "160px", paddingBottom: "100px" }}>
+        <section className="site-page-hero" style={{ paddingTop: "160px", paddingBottom: "65px" }}>
           <div className="container px-5 md:px-8" style={{ maxWidth: "960px", marginInline: "auto" }}>
             <div className="interior-heading">
               <span className="eyebrow">ABOUT SCITISENSE FUTURIZE</span>
@@ -122,57 +106,32 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* ── Why Partner With Us ──────────────────────────────────────────── */}
-        <section className="relative" style={{
-            paddingTop: "80px",
-            paddingBottom: "100px",
-            backgroundColor: "transparent",
-            borderTop: "1px solid var(--border)",
-        }}>
-          <div className="container px-5 md:px-8">
-            <div style={{ textAlign: "center", marginBottom: "56px" }}>
-              <motion.p className="text-[0.68rem] font-semibold tracking-[0.16em] uppercase mb-4" style={{ color: "var(--accent)" }} {...fadeUp(noMotion)}>
-                Why Partner With Us
-              </motion.p>
-              <motion.h2 className="font-bold tracking-[-0.025em]" style={{
-            fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-            color: "var(--text-primary)",
-        }} {...fadeUp(noMotion, 0.08)}>
-                Why Partner With Us?
-              </motion.h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "20px", maxWidth: "880px", marginInline: "auto" }}>
-              {PARTNER_CARDS.map((card, i) => (<InfoCard key={card.title} {...card} noMotion={noMotion} delay={i * 0.08}/>))}
-            </div>
+        <section className="leadership-section section-shell" aria-labelledby="leadership-title">
+          <div className="leadership-heading"><span className="eyebrow">OUR LEADERSHIP</span><h2 id="leadership-title">The people behind <span className="muted-blue">the work.</span></h2></div>
+          <div className="leadership-grid">
+            <motion.article className="leader-card leader-card-founder" {...fadeUp(noMotion, 0)} whileHover={noMotion ? undefined : { y: -8, transition: { duration: 0.45, ease } }}><div className="leader-photo"><Image src="/team/sampath-dakshina-murthy.jpeg" alt="Dr. A. Sampath Dakshina Murthy" fill sizes="(max-width: 600px) 100vw, (max-width: 850px) 50vw, 340px"/></div><div className="leader-card-copy"><span>FOUNDER</span><h3>Dr. A. Sampath Dakshina Murthy</h3><p>Founder</p></div></motion.article>
+            <motion.article className="leader-card" {...fadeUp(noMotion, 0.1)} whileHover={noMotion ? undefined : { y: -8, transition: { duration: 0.45, ease } }}><div className="leader-photo"><Image src="/team/b-omkar.jpeg" alt="Dr. B. Omkar Lakshmi Jagan" fill sizes="(max-width: 600px) 100vw, (max-width: 850px) 50vw, 340px"/></div><div className="leader-card-copy"><span>CO-FOUNDER</span><h3>Dr. B. Omkar Lakshmi Jagan</h3><p>Co-founder</p></div></motion.article>
+            <motion.article className="leader-card" {...fadeUp(noMotion, 0.2)} whileHover={noMotion ? undefined : { y: -8, transition: { duration: 0.45, ease } }}><div className="leader-photo"><Image src="/team/d-naga-chandra-teja.jpeg" alt="D. Naga Chandra Teja, Chief Technical Officer" fill sizes="(max-width: 600px) 100vw, (max-width: 850px) 50vw, 340px"/></div><div className="leader-card-copy"><span>CTO</span><h3>D. Naga Chandra Teja</h3><p>Chief Technical Officer</p></div></motion.article>
           </div>
         </section>
 
-        {/* ── What We Do ───────────────────────────────────────────────────── */}
-        <section className="relative" style={{
-            paddingTop: "80px",
-            paddingBottom: "100px",
-            backgroundColor: "transparent",
-            borderTop: "1px solid var(--border)",
-        }}>
-          <div className="container px-5 md:px-8">
-            <div style={{ textAlign: "center", marginBottom: "56px" }}>
-              <motion.p className="text-[0.68rem] font-semibold tracking-[0.16em] uppercase mb-4" style={{ color: "var(--accent)" }} {...fadeUp(noMotion)}>
-                Our Focus
-              </motion.p>
-              <motion.h2 className="font-bold tracking-[-0.025em]" style={{
-            fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-            color: "var(--text-primary)",
-        }} {...fadeUp(noMotion, 0.08)}>
-                What We Do
-              </motion.h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "20px", maxWidth: "880px", marginInline: "auto" }}>
-              {WHAT_WE_DO_CARDS.map((card, i) => (<InfoCard key={card.title} {...card} noMotion={noMotion} delay={i * 0.1}/>))}
-            </div>
+        <section className="founder-message section-shell" aria-labelledby="founder-message-title">
+          <div className="founder-message-heading">
+            <span className="eyebrow">A MESSAGE FROM OUR FOUNDER</span>
+            <h2 id="founder-message-title">Research into innovation.<br /><span className="muted-blue">Innovation into impact.</span></h2>
+          </div>
+          <div className="founder-message-copy">
+            <p>At Scitisense Futurize Private Limited, we believe in driving innovation to create impactful solutions.</p>
+            <p>Our goal is to bridge research and products by turning innovative ideas into cost-effective, accessible and impactful solutions.</p>
+            <p>With our passion for Artificial Intelligence, Healthcare Technologies, Internet of Things (IoT), Smart Wearables and Deep Tech Innovations, we aim to solve emerging problems in society and industry by research-driven product development.</p>
+            <p>We are committed to supporting young innovators, researchers, entrepreneurs and start-ups by providing them with opportunities to collaborate on research, develop prototypes, create IP and commercialize technology.</p>
+            <p>Our goal is to turn research into innovation, innovation into products and products into solutions.</p>
+            <p>Together, we aim to create a future where technology empowers humans, entrepreneurs create opportunities and innovation drives sustainable growth.</p>
+            <div className="founder-message-signature"><strong>Dr. A. Sampath Dakshina Murthy</strong><span>Founder</span><span>Scitisense Futurize Pvt. Ltd.</span><span>Visakhapatnam, Andhra Pradesh, India</span></div>
           </div>
         </section>
+
+
 
         {/* ── Our Mission ───────────────────────────────────────────────────── */}
         <section className="relative text-center" style={{
@@ -211,32 +170,37 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section className="founder-message section-shell" aria-labelledby="founder-message-title">
-          <div className="founder-message-heading">
-            <span className="eyebrow">A MESSAGE FROM OUR FOUNDER</span>
-            <h2 id="founder-message-title">Research into innovation.<br /><span className="muted-blue">Innovation into impact.</span></h2>
-          </div>
-          <div className="founder-message-copy">
-            <p>At Scitisense Futurize Private Limited, we believe in driving innovation to create impactful solutions.</p>
-            <p>Our goal is to bridge research and products by turning innovative ideas into cost-effective, accessible and impactful solutions.</p>
-            <p>With our passion for Artificial Intelligence, Healthcare Technologies, Internet of Things (IoT), Smart Wearables and Deep Tech Innovations, we aim to solve emerging problems in society and industry by research-driven product development.</p>
-            <p>We are committed to supporting young innovators, researchers, entrepreneurs and start-ups by providing them with opportunities to collaborate on research, develop prototypes, create IP and commercialize technology.</p>
-            <p>Our goal is to turn research into innovation, innovation into products and products into solutions.</p>
-            <p>Together, we aim to create a future where technology empowers humans, entrepreneurs create opportunities and innovation drives sustainable growth.</p>
-            <div className="founder-message-signature"><strong>Dr. A. Sampath Dakshina Murthy</strong><span>Founder, Scitisense Futurize Pvt. Ltd.</span><span>Visakhapatnam, Andhra Pradesh, India</span></div>
+
+
+        {/* ── Why Partner With Us ──────────────────────────────────────────── */}
+        <section className="relative" style={{
+            paddingTop: "80px",
+            paddingBottom: "100px",
+            backgroundColor: "transparent",
+            borderTop: "1px solid var(--border)",
+        }}>
+          <div className="container px-5 md:px-8">
+            <motion.div style={{ textAlign: "center", marginBottom: "56px", display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }} {...fadeUp(noMotion)}>
+              <p className="text-[0.68rem] font-semibold tracking-[0.16em] uppercase" style={{ color: "var(--accent)", margin: 0, lineHeight: 1.5 }}>
+                OUR APPROACH
+              </p>
+              <h2 className="font-bold tracking-[-0.025em]" style={{
+            fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+            color: "var(--text-primary)",
+            margin: 0, lineHeight: 1.15,
+        }}>
+                Why Partner With Us?
+              </h2>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "20px", maxWidth: "880px", marginInline: "auto" }}>
+              {PARTNER_CARDS.map((card, i) => (<InfoCard key={card.title} {...card} noMotion={noMotion} delay={i * 0.08}/>))}
+            </div>
           </div>
         </section>
 
-        <section className="leadership-section section-shell" aria-labelledby="leadership-title">
-          <div className="leadership-heading"><span className="eyebrow">OUR LEADERSHIP</span><h2 id="leadership-title">The people behind <span className="muted-blue">the work.</span></h2></div>
-          <div className="leadership-grid">
-            <article className="leader-card"><div className="leader-photo"><Image src="/team/sampath-dakshina-murthy.jpeg" alt="Dr. A. Sampath Dakshina Murthy" fill sizes="(max-width: 700px) 100vw, 33vw"/></div><div className="leader-card-copy"><span>01 / FOUNDER</span><h3>Dr. A. Sampath Dakshina Murthy</h3><p>Founder</p></div></article>
-            <article className="leader-card"><div className="leader-photo"><Image src="/team/b-omkar.jpeg" alt="Dr. B. Omkar" fill sizes="(max-width: 700px) 100vw, 33vw"/></div><div className="leader-card-copy"><span>02 / CO-FOUNDER &amp; CEO</span><h3>Dr. B. Omkar</h3><p>Co-founder and Chief Executive Officer</p></div></article>
-            <article className="leader-card"><div className="leader-photo"><Image src="/team/d-naga-chandra-teja.jpeg" alt="D. Naga Chandra Teja, Chief Technical Officer" fill sizes="(max-width: 700px) 100vw, 33vw"/></div><div className="leader-card-copy"><span>03 / CTO</span><h3>D. Naga Chandra Teja</h3><p>Chief Technical Officer · DNC Teja</p></div></article>
-          </div>
-        </section>
+
       </main>
 
-      <Footer />
     </>);
 }

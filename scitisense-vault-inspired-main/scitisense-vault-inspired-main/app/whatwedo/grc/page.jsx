@@ -2,7 +2,6 @@ import ServiceDetailHero from "@/components/ServiceDetailHero";
 import ServiceFeatureGrid from "@/components/ServiceFeatureGrid";
 import ServiceDeepDive from "@/components/ServiceDeepDive";
 import CTABand from "@/components/CTABand";
-import Footer from "@/components/Footer";
 export const metadata = { title: "Governance, Risk and Compliance — Scitisense Futurize" };
 const FEATURES = [
     "Risk Management",
@@ -34,6 +33,5 @@ export default function GRCPage() {
       <ServiceFeatureGrid features={FEATURES}/>
       <ServiceDeepDive sections={DEEP_DIVE}/>
       <CTABand />
-      <Footer />
     </>);
 }

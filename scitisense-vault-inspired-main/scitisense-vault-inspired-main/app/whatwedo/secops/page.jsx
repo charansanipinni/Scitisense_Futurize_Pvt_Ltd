@@ -2,7 +2,6 @@ import ServiceDetailHero from "@/components/ServiceDetailHero";
 import ServiceFeatureGrid from "@/components/ServiceFeatureGrid";
 import ServiceDeepDive from "@/components/ServiceDeepDive";
 import CTABand from "@/components/CTABand";
-import Footer from "@/components/Footer";
 export const metadata = { title: "Security Operations — Scitisense Futurize" };
 const FEATURES = [
     "Security Incident Response (SIR)",
@@ -34,6 +33,5 @@ export default function SecOpsPage() {
       <ServiceFeatureGrid features={FEATURES}/>
       <ServiceDeepDive sections={DEEP_DIVE}/>
       <CTABand />
-      <Footer />
     </>);
 }

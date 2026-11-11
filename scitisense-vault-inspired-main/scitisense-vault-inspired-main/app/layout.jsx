@@ -6,6 +6,8 @@ import "./theme.css";
 import "./interactions.css";
 import "./responsive.css";
 import "./new-sections.css";
+import "./service-program.css";
+import "./footer.css";
 import NavbarLight from "@/components/NavbarLight";
 import SmoothScrollProvider from "@/lib/lenis";
 import PageTransition from "@/components/PageTransition";

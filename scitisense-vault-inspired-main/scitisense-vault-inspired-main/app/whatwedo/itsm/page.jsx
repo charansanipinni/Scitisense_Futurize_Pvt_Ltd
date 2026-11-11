@@ -2,7 +2,6 @@ import ServiceDetailHero from "@/components/ServiceDetailHero";
 import ServiceFeatureGrid from "@/components/ServiceFeatureGrid";
 import ServiceDeepDive from "@/components/ServiceDeepDive";
 import CTABand from "@/components/CTABand";
-import Footer from "@/components/Footer";
 export const metadata = { title: "IT Service Management — Scitisense Futurize" };
 const FEATURES = ["Incident", "Change Request", "Problem", "Service Catalog"];
 const DEEP_DIVE = [
@@ -29,6 +28,5 @@ export default function ITSMPage() {
       <ServiceFeatureGrid features={FEATURES}/>
       <ServiceDeepDive sections={DEEP_DIVE}/>
       <CTABand />
-      <Footer />
     </>);
 }

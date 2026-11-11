@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 export default function SmoothScrollProvider({ children, }) {
     const pathname = usePathname();
     useEffect(() => {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+        if (pathname === "/" || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
             return;
         const lenis = new Lenis({
             anchors: true,

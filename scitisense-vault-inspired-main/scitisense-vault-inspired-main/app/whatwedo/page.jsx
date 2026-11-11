@@ -1,7 +1,6 @@
 "use client";
 import { motion, useReducedMotion } from "motion/react";
 import { Settings2, Activity, Package, Users, Shield, Headphones, Zap, Lock, ChevronRight, } from "lucide-react";
-import Footer from "@/components/Footer";
 const ease = [0.22, 1, 0.36, 1];
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const SERVICE_TYPES = [
@@ -234,6 +233,5 @@ export default function WhatWeDo() {
 
       </main>
 
-      <Footer />
     </>);
 }

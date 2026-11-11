@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown, ChevronUp, ArrowRight, CheckCircle } from "lucide-react";
-import Link from "next/link";
-import Footer from "@/components/Footer";
+import { usePathname } from "next/navigation";
+import ServiceProgram from "@/components/ServiceProgram";
 const services = [
     {
         id: 'computer-vision',
@@ -228,6 +228,15 @@ function ServiceIcon({ name, size = 22, color }) {
     return <>{icons[name] || icons.eye}</>;
 }
 export default function ServicesPage() {
+    const pathname = usePathname();
+    const selectedCategory = pathname.split('/')[2] || 'research-development';
+    const categoryDetails = {
+        'research-development': ['Research & development', 'Evidence into innovation.', 'Explore our research areas, methods and prototype work.'],
+        'training-workshops': ['Training & workshops', 'Learn by doing.', 'Practical sessions for students, researchers and teams.'],
+        'consultancy-services': ['Consultancy services', 'A clearer path forward.', 'Technical guidance from problem definition through delivery.'],
+        internships: ['Internships', 'Grow through real work.', 'Explore opportunities to learn, research and build.'],
+    };
+    const [categoryLabel, categoryHeadline, categoryDescription] = categoryDetails[selectedCategory] || categoryDetails['research-development'];
     const [expanded, setExpanded] = useState(null);
     const sectionRef = useRef(null);
     useEffect(() => {
@@ -285,7 +294,7 @@ export default function ServicesPage() {
 
         <div style={{ position: 'relative', zIndex: 1 }}>
           <span className="tag-pill-light" style={{ marginBottom: 20, display: 'inline-flex' }}>
-            Our Services
+            {categoryLabel}
           </span>
           <h1 style={{
             fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
@@ -294,32 +303,21 @@ export default function ServicesPage() {
             lineHeight: 0.95,
             marginBottom: 20,
         }}>
-            <span style={{ display: 'block', color: '#465d6e' }}>Research. Learning.</span>
-            <span className="text-gradient-teal" style={{ display: 'block' }}>
-              Real-world progress.
-            </span>
+            <span style={{ display: 'block', color: '#465d6e' }}>{categoryLabel}</span>
+            <span className="text-gradient-teal" style={{ display: 'block' }}>{categoryHeadline}</span>
           </h1>
           <p style={{
             color: '#465d6e', fontSize: '1.05rem',
             maxWidth: 600, margin: '0 auto 40px',
             lineHeight: 1.7,
         }}>
-            Explore research and development, hands-on learning, consultancy and internship opportunities at Scitisense Futurize.
+            {categoryDescription}
           </p>
         </div>
       </section>
 
-      <nav className="service-category-nav" aria-label="Service categories">
-        {[
-            ['Research and Development', '#research-development'],
-            ['Training and Workshops', '#training-workshops'],
-            ['Consultancy Services', '#consultancy-services'],
-            ['Internships', '#internships'],
-        ].map(([label, href]) => <a key={href} href={href}>{label}<ArrowRight size={15} aria-hidden="true"/></a>)}
-      </nav>
-
       {/* ACCORDION CARDS */}
-      <section id="research-development" ref={sectionRef} style={{
+      {selectedCategory === 'research-development' && <section id="research-development" ref={sectionRef} style={{
             padding: '80px 40px',
             maxWidth: 1280, margin: '0 auto',
         }}>
@@ -548,21 +546,7 @@ export default function ServicesPage() {
                           </div>
                         </div>
 
-                        <Link href="/contact" style={{
-                        padding: '10px 20px',
-                        background: `linear-gradient(135deg, ${svc.color}, ${svc.color}BB)`,
-                        color: '#ffffff',
-                        borderRadius: 980,
-                        fontSize: 13, fontWeight: 700,
-                        textDecoration: 'none',
-                        display: 'inline-flex',
-                        alignItems: 'center', gap: 6,
-                        alignSelf: 'flex-start',
-                        marginTop: 8,
-                    }}>
-                          Start This Research
-                          <ArrowRight size={13}/>
-                        </Link>
+
                       </div>
                     </div>
                   </div>)}
@@ -583,38 +567,9 @@ export default function ServicesPage() {
               </div>);
         })}
         </div>
-      </section>
+      </section>}
 
-      <section className="service-program-section" id="training-workshops">
-        <div className="service-program-heading"><span className="eyebrow">02 / LEARN WITH US</span><h2>Training and <span className="muted-blue">Workshops</span></h2><p>Practical sessions that help students and teams turn emerging technology into working skills.</p></div>
-        <div className="service-program-grid">
-          <article><span>01</span><h3>Learn the foundations</h3><p>Build a clear understanding of AI, machine learning, computer vision, IoT and related technologies through guided examples.</p></article>
-          <article><span>02</span><h3>Build by doing</h3><p>Work through focused exercises, prototype challenges and demonstrations shaped around your audience and goals.</p></article>
-          <article><span>03</span><h3>Take it further</h3><p>Connect new skills to research questions, product ideas and the next steps for a real project.</p></article>
-        </div>
-        <Link className="service-program-link" href="/contact">Discuss a workshop <ArrowRight size={17}/></Link>
-      </section>
+      <ServiceProgram category={selectedCategory} />
 
-      <section className="service-program-section service-program-tinted" id="consultancy-services">
-        <div className="service-program-heading"><span className="eyebrow">03 / WORK TOGETHER</span><h2>Consultancy <span className="muted-blue">Services</span></h2><p>Support for organisations moving from a promising question to a sound technical direction.</p></div>
-        <div className="service-program-grid">
-          <article><span>DISCOVER</span><h3>Define the problem</h3><p>Clarify requirements, research context, constraints and the outcomes that would make a solution useful.</p></article>
-          <article><span>DESIGN</span><h3>Plan the approach</h3><p>Evaluate technologies, shape the architecture and identify a practical path to validation.</p></article>
-          <article><span>DELIVER</span><h3>Support execution</h3><p>Help with prototypes, testing, technical review, documentation and knowledge transfer.</p></article>
-        </div>
-        <Link className="service-program-link" href="/contact">Start a consultation <ArrowRight size={17}/></Link>
-      </section>
-
-      <section className="service-program-section" id="internships">
-        <div className="service-program-heading"><span className="eyebrow">04 / GROW WITH US</span><h2>Internships with <span className="muted-blue">purpose.</span></h2><p>For curious students and emerging researchers who want to explore real problems and make something tangible.</p></div>
-        <div className="service-program-grid">
-          <article><span>EXPLORE</span><h3>Choose a direction</h3><p>Share your interests in AI, healthcare technology, IoT, smart wearables or deep tech. We can discuss a suitable research question or project.</p></article>
-          <article><span>CREATE</span><h3>Work on a project</h3><p>Develop your thinking through research, experimentation, a prototype or technical documentation, depending on the opportunity.</p></article>
-          <article><span>COMMUNICATE</span><h3>Show what you learned</h3><p>Present your approach, decisions and outcomes so the work can inform the next stage of development.</p></article>
-        </div>
-        <div className="service-program-note"><p>Internship openings, format, duration and eligibility are shared when an opportunity is available.</p><Link className="service-program-link" href="/contact">Ask about internships <ArrowRight size={17}/></Link></div>
-      </section>
-
-      <Footer />
     </div>);
 }

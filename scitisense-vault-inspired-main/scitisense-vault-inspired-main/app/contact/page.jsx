@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { Mail, Phone, MapPin, FlaskConical, ArrowRight } from "lucide-react";
-import Footer from "@/components/Footer";
 const SERVICE_OPTIONS = [
     "Computer Vision",
     "IoT & Wearable",
@@ -41,11 +40,27 @@ function blurField(e) {
 }
 export default function Contact() {
     const [form, setForm] = useState({ name: "", phone: "", email: "", service: "", message: "" });
-    const [sent, setSent] = useState(false);
+    const [sending, setSending] = useState(false);
+    const [feedback, setFeedback] = useState(null);
     const handleChange = (e) => setForm((v) => ({ ...v, [e.target.name]: e.target.value }));
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSent(true);
+        if (sending) return;
+        const website = new FormData(e.currentTarget).get("website");
+        setSending(true);
+        setFeedback(null);
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...form, website }),
+            });
+            const result = await response.json();
+            if (!response.ok || !result.success) throw new Error(result.error || "Unable to send your message. Please try again.");
+            setFeedback({ success: true, message: "Your message has been submitted to our email service for info@scitisensefuturize.in. Thank you for getting in touch." });
+            setForm({ name: "", phone: "", email: "", service: "", message: "" });
+        } catch (error) {
+            setFeedback({ success: false, message: error.message || "Unable to send your message. Please try again." });
+        } finally { setSending(false); }
     };
     return (<>
       <main className="relative" style={{ backgroundColor: "#f6f9fb" }}>
@@ -96,19 +111,8 @@ export default function Contact() {
               {/* Form — 60% */}
               <div className="lg:col-span-3">
                 <div className="service-card-light" style={{ padding: 32 }}>
-                  {sent ? (<div className="text-center py-12">
-                      <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: "rgba(51,86,149,0.1)" }}>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M5 13l4 4L19 7" stroke="#284f87" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <h3 className="font-semibold text-lg mb-2" style={{ color: "#172b3a" }}>
-                        Message Sent!
-                      </h3>
-                      <p className="text-sm" style={{ color: "#465d6e" }}>
-                        We&apos;ll be in touch within one business day.
-                      </p>
-                    </div>) : (<form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-5" aria-busy={sending}>
+                      <div hidden aria-hidden="true"><label htmlFor="website">Leave this empty</label><input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
                       <div>
                         <label htmlFor="name" style={LABEL_STYLE}>Full Name *</label>
                         <input id="name" name="name" type="text" required placeholder="Jane Smith" value={form.name} onChange={handleChange} style={FIELD_STYLE} onFocus={focusField} onBlur={blurField}/>
@@ -137,11 +141,12 @@ export default function Contact() {
                         <textarea id="message" name="message" required rows={5} placeholder="Tell us about your project or challenge…" value={form.message} onChange={handleChange} style={{ ...FIELD_STYLE, resize: "vertical" }} onFocus={focusField} onBlur={blurField}/>
                       </div>
 
-                      <button type="submit" className="btn-primary-light flex items-center justify-center gap-2 w-full" style={{ padding: "14px 0", fontSize: 14 }}>
-                        Send Message
+                      <button type="submit" disabled={sending} className="btn-primary-light flex items-center justify-center gap-2 w-full" style={{ padding: "14px 0", fontSize: 14, opacity: sending ? 0.65 : 1 }}>
+                        {sending ? "Sending…" : "Send Message"}
                         <ArrowRight size={15} strokeWidth={2.5}/>
                       </button>
-                    </form>)}
+                      {feedback && <p className="text-sm" role={feedback.success ? "status" : "alert"} style={{ color: feedback.success ? "#245b47" : "#9b2828", lineHeight: 1.7 }}>{feedback.message}</p>}
+                    </form>
                 </div>
               </div>
 
@@ -216,6 +221,5 @@ export default function Contact() {
 
       </main>
 
-      <Footer />
     </>);
 }

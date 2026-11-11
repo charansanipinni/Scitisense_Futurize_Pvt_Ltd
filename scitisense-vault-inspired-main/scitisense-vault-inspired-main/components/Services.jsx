@@ -11,7 +11,7 @@ const items = [
     { slug: "agentic-ai", name: "Intelligence in action.", label: "AGENTIC AI", copy: "Build coordinated AI workflows that move from understanding to doing.", icon: Bot, visual: "agents" },
 ];
 export default function Services() {
-    return <section className="expertise-section section-shell" id="expertise">
+    return <section className="expertise-section section-shell" id="services">
   <div className="section-heading"><span className="eyebrow">OUR EXPERTISE</span><h2>Less complexity.<br />More <span className="muted-blue">possibility.</span></h2><p>Deep research. Practical technology.<br />The right expertise to take your ideas further.</p></div>
   <div className="expertise-grid">{items.map((item, i) => <motion.div key={item.slug} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .15 }} transition={{ duration: .6, delay: i % 3 * .08 }}><Link href={`/services#${item.slug}`} className={`expertise-card expertise-${item.visual}`}>
     <div className="expertise-card-top"><span className="micro-label">{item.label}</span><span className="card-arrow"><ArrowUpRight size={20}/></span></div>
