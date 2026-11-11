@@ -1,0 +1,119 @@
+/* Responsive sizing is defined last so older section styles cannot override it. */
+:root {
+  --font-plus-jakarta-sans: var(--font-geist-sans);
+  --font-space-grotesk: var(--font-geist-sans);
+  --font-dm-sans: var(--font-geist-sans);
+}
+
+.site-page :where(h1, h2, h3, h4, p) { overflow-wrap: break-word; }
+.site-page .grid > *, .footer-top > *, .process-panel > * { min-width: 0; }
+.company-brand-copy { min-width: 0; }
+.company-brand-name { max-width: 100%; }
+.hero-composition .hero-copy .hero-headline {
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.14;
+  letter-spacing: -.055em;
+  max-width: 100%;
+}
+.hero-headline-leading { display: block; }
+.hero-headline-ending {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: .04em .18em;
+  max-width: 100%;
+}
+.hero-headline .rotator {
+  flex: 0 1 5em;
+  display: inline-block;
+  width: 5em;
+  max-width: 100%;
+  min-width: 0;
+  height: 1.16em;
+  line-height: 1.1;
+  overflow: clip;
+}
+.hero-copy > .eyebrow { max-width: 100%; line-height: 1.6; }
+.hero-composition .hero-copy > p { line-height: 1.8; }
+.glass-action { max-width: 100%; }
+.glass-action .ml-optical-label { white-space: normal; text-align: center; overflow-wrap: break-word; }
+.glass-action .ml-optical-face { min-height: 50px; }
+.glass-action .ml-optical-icon { flex-shrink: 0; }
+.simple-mobile-navigation > a { min-height: 44px; line-height: 1.4; }
+.service-card-title-row { gap: 8px; }
+.service-card-identity { min-width: 0; flex: 1; }
+.service-card-identity > div:last-child { min-width: 0; }
+.service-card-title-row > button { min-width: 44px; min-height: 44px; }
+.algo-chip { max-width: 100%; white-space: normal; overflow-wrap: anywhere; line-height: 1.5; }
+.footer-contact a, .footer-contact p { overflow-wrap: anywhere; }
+.faq-item button { gap: 16px; line-height: 1.5; }
+.faq-item button > svg { flex-shrink: 0; }
+.process-tabs > button { min-height: 48px; }
+
+@media (min-width: 1100px) and (min-height: 700px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero-composition .hero-copy { width: 43%; max-width: 540px; }
+  .hero-composition .hero-copy .hero-headline { font-size: clamp(38px, 4vw, 60px); }
+  .hero-headline-ending { justify-content: flex-start; }
+  .hero-composition .hero-introduction { background: linear-gradient(90deg, #08121ef2 0%, #08121eb3 30%, #08121e00 66%); }
+}
+
+@media (max-width: 1000px) {
+  :root { --header-clearance: 232px; }
+  .simple-site-header { gap: 10px; }
+  .simple-mobile-navigation { gap: 4px; }
+  .hero-composition section.hero-introduction { padding-top: var(--header-clearance); }
+  .process-panel { min-height: 0; }
+  .process-copy h3 { overflow-wrap: break-word; }
+}
+
+@media (max-width: 767px) {
+  .site-page { width: 100%; }
+  .section-shell { width: calc(100% - 40px); }
+  .hero-composition .hero-copy .hero-headline { font-size: clamp(34px, 8.5vw, 54px); }
+  .hero-copy > .eyebrow { letter-spacing: .05em; }
+  .interior-page .site-page-hero h1 { font-size: clamp(32px, 7.8vw, 52px) !important; line-height: 1.14 !important; }
+  .interior-page .site-page-hero h1 span { line-height: inherit; }
+  .site-page input, .site-page textarea, .site-page select { font-size: 16px !important; line-height: 1.5; }
+  .site-page input, .site-page select { min-height: 48px; }
+  .site-page textarea { min-height: 150px; }
+  .interior-page .card-3d { padding: 26px 22px !important; }
+  .interior-page .service-card-light { max-width: 100%; }
+  .service-card-header { padding: 22px !important; }
+  .service-card-identity { gap: 12px !important; }
+  .service-card-identity h3 { font-size: 16px !important; line-height: 1.4; }
+  .service-card-identity > div:first-child { width: 40px !important; height: 40px !important; }
+  .process-copy { padding: 30px 24px; }
+  .process-illustration { padding: 26px; }
+  .process-sheet { width: 100%; max-width: 315px; }
+  .research-cta { min-height: 0; padding-bottom: 28px; }
+  .research-cta .cta-copy h2 { line-height: 1.12; }
+  .research-cta .glass-action { max-width: 100%; }
+  .footer-top { gap: 32px 20px; }
+  .footer-top > div > a:not(.company-brand) { min-height: 44px; margin-bottom: 4px; }
+  .footer-brand .text-link { min-height: 44px; }
+  .whatsapp-link > div:first-child { display: none; }
+  .whatsapp-link { bottom: max(14px, calc(env(safe-area-inset-bottom) + 12px)) !important; right: max(14px, env(safe-area-inset-right)) !important; }
+}
+
+@media (max-width: 420px) {
+  .hero-composition .hero-copy .hero-headline { font-size: clamp(30px, 8.5vw, 35px); }
+  .company-brand-name { font-size: 15px; }
+  .company-brand-legal { font-size: 11px; }
+  .simple-mobile-navigation > a { padding-inline: 9px; font-size: 11px; }
+  .hero-composition .hero-actions { gap: 12px; }
+  .hero-composition .glass-action { width: 100%; max-width: 300px; }
+  .expertise-card { padding-inline: 22px; }
+  .expertise-card h3 { font-size: 26px; line-height: 1.2; }
+  .section-heading h2, .faq-section h2 { font-size: 34px; line-height: 1.12; }
+  .section-heading > p { line-height: 1.8; }
+  .capability-chip { max-width: 90%; }
+  .reason-card h3 { font-size: 26px; line-height: 1.2; }
+  .process-tabs > button { padding-inline: 8px; gap: 6px; }
+  .footer-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .footer-brand, .footer-contact { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-headline .rotator { overflow: visible; }
+}

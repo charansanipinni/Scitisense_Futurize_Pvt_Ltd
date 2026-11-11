@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="1050" viewBox="0 0 840 1050">
+  <defs>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#7993a5" stroke-opacity=".09" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="840" height="1050" fill="#f6f4ee"/>
+  <rect x="46" y="46" width="748" height="958" fill="none" stroke="#d8dbd6"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="84" y="110" fill="#253d52" font-size="26" font-weight="700" letter-spacing="-1">scitisense</text>
+    <text x="85" y="132" fill="#69808e" font-size="10" letter-spacing="4.8">FUTURIZE</text>
+    <text x="756" y="109" text-anchor="end" fill="#69808e" font-size="11" letter-spacing="2">RESEARCH NOTE / 01</text>
+    <path d="M84 169H756" stroke="#cbd2d1"/>
+    <text x="84" y="222" fill="#69808e" font-size="11" letter-spacing="2.6">TURNING QUESTIONS INTO POSSIBILITIES</text>
+    <text x="80" y="296" fill="#253d52" font-size="63" letter-spacing="-3">Every breakthrough</text>
+    <text x="80" y="367" fill="#253d52" font-size="63" letter-spacing="-3">starts with a question.</text>
+    <text x="84" y="414" fill="#6d7b82" font-size="18">A thoughtful path from scientific thinking to real-world use.</text>
+    <rect x="84" y="455" width="672" height="252" fill="url(#grid)"/>
+    <g fill="none" stroke="#7f9caf" stroke-width="1.2">
+      <ellipse cx="420" cy="579" rx="200" ry="66" transform="rotate(-22 420 579)"/>
+      <ellipse cx="420" cy="579" rx="173" ry="83" transform="rotate(25 420 579)"/>
+      <circle cx="420" cy="579" r="93" stroke-dasharray="3 6" stroke-opacity=".5"/>
+      <path d="M211 632L420 579L598 506M420 579L566 650" stroke-opacity=".45"/>
+    </g>
+    <g fill="#f6f4ee" stroke="#7899ab" stroke-width="2"><circle cx="236" cy="614" r="8"/><circle cx="591" cy="531" r="8"/><circle cx="510" cy="646" r="8"/></g>
+    <circle cx="420" cy="579" r="37" fill="#dbe5e9" stroke="#aac0ce"/>
+    <path d="M420 560V598M401 579H439M407 566L433 592M407 592L433 566" stroke="#335695" stroke-width="1.6" stroke-linecap="round"/>
+    <g fill="#69808e" font-size="10" letter-spacing="1.5"><text x="128" y="668">CURIOSITY</text><text x="594" y="493">EVIDENCE</text><text x="554" y="685">IMPACT</text></g>
+    <path d="M84 738H756" stroke="#cbd2d1"/>
+    <g fill="#253d52" font-size="20"><text x="84" y="786">01</text><text x="315" y="786">02</text><text x="550" y="786">03</text></g>
+    <g fill="#253d52" font-size="22"><text x="84" y="827">Define.</text><text x="315" y="827">Develop.</text><text x="550" y="827">Deliver.</text></g>
+    <g fill="#6d7b82" font-size="14"><text x="84" y="856">Understand the challenge.</text><text x="315" y="856">Build the evidence.</text><text x="550" y="856">Put progress to work.</text></g>
+    <path d="M84 904H756" stroke="#cbd2d1"/>
+    <text x="84" y="949" fill="#69808e" font-size="10" letter-spacing="1.4">SCIENTIFIC THINKING. INTELLIGENT TECHNOLOGY.</text>
+    <text x="756" y="949" text-anchor="end" fill="#335695" font-size="17">SF / R&amp;D</text>
+  </g>
+</svg>

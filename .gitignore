@@ -1,0 +1,21 @@
+# Dependencies and generated output throughout the repository
+node_modules/
+.next/
+.next-backup-*/
+out/
+build/
+coverage/
+
+# Local configuration and credentials
+.env*
+.vercel/
+*.pem
+
+# Logs and TypeScript cache
+*.log
+*.tsbuildinfo
+next-env.d.ts
+
+# OS files
+.DS_Store
+Thumbs.db

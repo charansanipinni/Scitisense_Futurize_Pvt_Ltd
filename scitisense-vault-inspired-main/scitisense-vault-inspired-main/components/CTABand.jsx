@@ -1,0 +1,66 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
+export default function CTABand({ heading = <>Ready to <span className="text-gradient-teal">Co-Innovate With Us?</span></>, subtext = "Partner with Scitisense Futurize for cutting-edge scientific research, AI product development, and medical IT solutions.", primary = { label: "Book a Free Consult", href: "/contact" }, secondary = { label: "View Success Stories", href: "/stories" }, }) {
+    const ref = useRef(null);
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        const el = ref.current;
+        if (!el)
+            return;
+        const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting)
+            setVisible(true); }, { threshold: 0.2 });
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
+    return (<section id="cta" className="relative overflow-hidden" style={{
+            background: "linear-gradient(135deg, #F0F7FF 0%, #edf4f7 50%, #F0F7FF 100%)",
+            padding: "100px 24px",
+            borderTop: "1px solid rgba(0,0,0,0.06)",
+            borderBottom: "1px solid rgba(0,0,0,0.06)",
+        }}>
+      <div aria-hidden="true" style={{
+            position: "absolute", top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 800, height: 400,
+            background: "radial-gradient(ellipse, rgba(51,86,149,0.06), transparent 60%)",
+            filter: "blur(40px)",
+            pointerEvents: "none",
+        }}/>
+      <div ref={ref} className={`relative container text-center flex flex-col items-center reveal-up${visible ? " revealed" : ""}`} style={{ zIndex: 1 }}>
+        {/* Heading */}
+        <h2 className="font-extrabold tracking-tight mb-5" style={{
+            fontSize: "clamp(2rem, 4vw, 3.5rem)",
+            lineHeight: 1.08,
+            letterSpacing: "-0.03em",
+            color: "#172b3a",
+        }}>
+          {heading}
+        </h2>
+
+        {/* Subtext */}
+        <p style={{
+            fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
+            color: "#465d6e",
+            lineHeight: 1.7,
+            maxWidth: "560px",
+            margin: "0 auto 40px",
+        }}>
+          {subtext}
+        </p>
+
+        {/* Buttons */}
+        <div className="flex items-center gap-4 flex-wrap justify-center">
+          <a href={primary.href} className="btn-primary-light flex items-center gap-2" style={{ padding: "14px 32px", fontSize: "0.95rem" }}>
+            {primary.label}
+            <ArrowRight size={16} strokeWidth={2.5}/>
+          </a>
+
+          <a href={secondary.href} className="btn-outline-light flex items-center gap-2" style={{ padding: "14px 32px", fontSize: "0.95rem" }}>
+            {secondary.label}
+            <ArrowRight size={16} strokeWidth={2.5}/>
+          </a>
+        </div>
+      </div>
+    </section>);
+}

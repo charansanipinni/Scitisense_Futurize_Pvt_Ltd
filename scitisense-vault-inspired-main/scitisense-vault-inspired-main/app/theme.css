@@ -1,0 +1,130 @@
+/* Scitisense: one blue family, readable text, and explicit light/dark surfaces.
+   Canvas equivalents live in lib/theme.ts. */
+:root {
+  --brand-page: #f6f9fb;
+  --brand-surface: #ffffff;
+  --brand-tint: #e8f0f6;
+  --brand-hero: #dbe9f0;
+  --brand-ink: #172b3a;
+  --brand-body: #465d6e;
+  --brand-muted: #4c6373;
+  --brand-accent: #284f87;
+  --brand-heading: #466580;
+  --brand-border: #c2d2de;
+  --brand-input-border: #71899c;
+  --brand-navy: #08121e;
+  --brand-on-navy: #f6f9fb;
+  --bg-base: var(--brand-page);
+  --bg-elevated: var(--brand-surface);
+  --bg-navy: var(--brand-tint);
+  --bg-overlay: var(--brand-tint);
+  --bg-footer: var(--brand-tint);
+  --text-primary: var(--brand-ink);
+  --text-secondary: var(--brand-body);
+  --text-muted: var(--brand-muted);
+  --accent: var(--brand-accent);
+  --accent-blue: var(--brand-accent);
+  --accent-purple: var(--brand-accent);
+  --border: var(--brand-border);
+}
+
+html, body { background: var(--brand-page); color: var(--brand-ink); }
+.home-page h1, .home-page h2, .home-page h3, .home-page h4 { color: var(--brand-ink); }
+.home-page p, .hero-copy > p { color: var(--brand-body); }
+.muted-blue { color: var(--brand-heading); }
+.eyebrow, .micro-label, .brand-subtitle { color: var(--brand-muted); }
+.button-dark, .interior-page .btn-primary-light { background: var(--brand-accent); border-color: var(--brand-accent); color: #fff; }
+.button-dark:hover, .interior-page .btn-primary-light:hover { background: #1d3e6d; border-color: #1d3e6d; }
+.button-light { background: #ffffffde; border-color: #aebfce; color: var(--brand-ink); }
+.text-link { color: var(--brand-accent); }
+.text-link:hover { color: #1d3e6d; }
+.status-dot { background: var(--brand-accent); box-shadow: 0 0 0 3px #284f8710; }
+.check-circle, .console-icon, .console-icon.sage { color: var(--brand-accent); background: #dce8f2; }
+.text-gradient-teal { background: none !important; color: var(--brand-accent) !important; -webkit-text-fill-color: var(--brand-accent) !important; }
+.stats-section > div > span:last-child, .recognition-strip > span { color: var(--brand-muted); }
+.recognition-strip strong { color: var(--brand-muted); opacity: 1; }
+.recognition-strip small { font-size: 8px; letter-spacing: .12em; }
+
+.expertise-card,
+.expertise-sensors, .expertise-learning, .expertise-language,
+.expertise-generative, .expertise-agents {
+  background: var(--brand-tint);
+  border-color: var(--brand-border);
+}
+.expertise-card:hover { background: #e1edf5; border-color: #8daec7; }
+.expertise-card .capability-core { color: var(--brand-accent); background: linear-gradient(140deg, #fff, #c6dbe8); }
+.expertise-card .micro-label, .capability-chip, .card-bottom { color: var(--brand-muted); }
+.card-arrow { color: var(--brand-accent); border-color: #9bb4c7; }
+.expertise-card:hover .card-arrow { background: var(--brand-accent); color: white; border-color: var(--brand-accent); }
+.reason-number { color: var(--brand-heading); }
+.process-tabs > button { color: var(--brand-muted); }
+.process-tabs > button.active { color: var(--brand-accent); border-color: var(--brand-accent); }
+.process-sheet > div > span:last-child { color: var(--brand-muted); }
+.faq-item button svg { color: var(--brand-accent); }
+.footer-top > div > .micro-label, .footer-top > div > a:not(.brand),
+.footer-contact p, .footer-bottom, .footer-available, .reason-signature,
+.research-paper-figure figcaption { color: var(--brand-muted); }
+.template-footer { background: var(--brand-tint); border-color: var(--brand-border); }
+.interior-page .tag-pill-light, .algo-chip { color: var(--brand-accent); border-color: #b4cbdc; background: #e5eef5; }
+.interior-page input, .interior-page select, .interior-page textarea { color: var(--brand-ink) !important; border-color: var(--brand-input-border) !important; }
+.interior-page input::placeholder, .interior-page textarea::placeholder { color: var(--brand-muted); opacity: 1; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline-color: var(--brand-accent); }
+
+/* The welcome remains readable before hydration; the gallery handles its own motion. */
+.template-hero.hero-introduction { min-height: 0; padding-top: 166px; padding-bottom: 65px; background: var(--brand-hero); }
+.hero-introduction .hero-copy { max-width: 1100px; margin-inline: auto; }
+.hero-gallery-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; font-size: 12px; color: var(--brand-muted); padding: 8px; }
+.hero-gallery-link:hover { color: var(--brand-accent); }
+
+.hallway-experience { width: 100%; min-width: 0; background: var(--brand-navy); color: var(--brand-on-navy); }
+.hallway-toolbar { padding: 18px max(32px, calc((100vw - 1160px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid #bcd5e829; }
+.hallway-toolbar > span { color: #c5d8e7; font-size: 10px; letter-spacing: .13em; }
+.hallway-toolbar > a { display: inline-flex; align-items: center; gap: 8px; color: #e8f0f6; font-size: 12px; padding: 7px 0; }
+.hallway-toolbar > a:hover { color: #fff; }
+.hallway-experience .hw-root { background: var(--brand-navy); font-family: var(--font-geist-sans), Arial, sans-serif; }
+.hallway-experience .hw-root .hw-stage { background-color: var(--brand-navy); }
+.hallway-experience .hw-root .hw-h { color: var(--brand-on-navy); }
+.hallway-experience .hw-root .hw-intro .hw-p { color: #cfdfeb; }
+.hallway-experience .hw-root .hw-go { color: var(--brand-on-navy); }
+.hallway-experience .hw-root .hw-eh { color: var(--brand-ink); }
+.hallway-experience .hw-root .hw-ep { color: var(--brand-body); }
+.hallway-experience .hw-root .hw-end-text a { color: var(--brand-accent); border-color: var(--brand-accent); }
+.hallway-experience .hw-root .hw-scrim { background: linear-gradient(to top, #f6f9fbe6, #f6f9fb40 48%, transparent 72%); }
+.hallway-experience .hw-root .hw-go a { border-color: #cfdfeb80; }
+.hallway-experience .hw-root a:focus-visible { outline: 3px solid #dbe9f0; outline-offset: 5px; }
+.hallway-exit { height: 0; scroll-margin-top: 20px; outline: none; }
+.hallway-live { display: none; }
+.hallway-static { display: block; max-width: 1160px; width: calc(100% - 40px); margin-inline: auto; padding-block: 45px 55px; }
+.hallway-static-heading { margin-bottom: 30px; }
+.hallway-static-heading .eyebrow { color: #bcd5e8; margin-bottom: 15px; }
+.home-page .hallway-static-heading h2 { font-size: clamp(30px, 5vw, 44px); color: var(--brand-on-navy); margin-bottom: 15px; }
+.home-page .hallway-static-heading p { color: #cfdfeb; font-size: 14px; line-height: 1.8; }
+.hallway-static-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.hallway-static-card { display: block; min-width: 0; border: 1px solid #8daec744; border-radius: 14px; overflow: hidden; background: #112335; }
+.hallway-static-card > img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.hallway-static-card > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px; }
+.hallway-static-card strong { color: var(--brand-on-navy); font-size: 14px; font-weight: 500; }
+.hallway-static-card small { display: block; margin-top: 5px; color: #cfdfeb; font-size: 12px; }
+.hallway-static-card svg { color: #bcd5e8; flex-shrink: 0; }
+.hallway-static-card:hover { border-color: #bcd5e8; }
+.hallway-static-card:focus-visible, .hallway-toolbar a:focus-visible { outline-color: #bcd5e8; }
+
+@media (min-width: 1100px) and (min-height: 700px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hallway-live { display: block; }
+  .hallway-static { display: none; }
+}
+@media (max-width: 800px) {
+  .template-hero.hero-introduction { padding-top: 140px; padding-bottom: 50px; }
+}
+@media (max-width: 600px) {
+  .template-hero.hero-introduction { padding-top: 132px; padding-bottom: 38px; }
+  .hallway-toolbar { padding-inline: 20px; }
+  .hallway-toolbar > span { font-size: 8px; letter-spacing: .08em; }
+  .hallway-toolbar > a { font-size: 11px; }
+  .hallway-static-cards { grid-template-columns: 1fr; gap: 18px; }
+  .hallway-static-card { display: grid; grid-template-columns: min(32vw, 125px) minmax(0, 1fr); align-items: center; }
+  .hallway-static-card > div { padding: 18px; }
+  .hallway-static-card strong { font-size: 13px; }
+  .hallway-static-card small { line-height: 1.5; }
+  .hero-gallery-link { margin-top: 22px; }
+}
