@@ -108,7 +108,6 @@ export default function ServiceProgram({ category }) {
         <Image src={`/programs/${detail.photo}`} alt={detail.alt} fill sizes="(max-width: 760px) 100vw, 50vw" className="program-image" />
         <span className="program-image-label">{program.imageLabel}</span>
       </div>
-      <figcaption>Illustrative photography · <a href={detail.photoUrl} target="_blank" rel="noopener noreferrer">{detail.photographer} / Unsplash</a></figcaption>
       </figure>
     </section>
 

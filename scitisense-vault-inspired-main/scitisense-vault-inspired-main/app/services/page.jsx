@@ -2,7 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown, ChevronUp, ArrowRight, CheckCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import ServiceProgram from "@/components/ServiceProgram";
+import { serviceLinks } from "@/lib/site-links";
 const services = [
     {
         id: 'computer-vision',
@@ -229,14 +231,14 @@ function ServiceIcon({ name, size = 22, color }) {
 }
 export default function ServicesPage() {
     const pathname = usePathname();
-    const selectedCategory = pathname.split('/')[2] || 'research-development';
+    const selectedCategory = pathname.split('/')[2] || null;
     const categoryDetails = {
+        overview: ['Services', 'Explore what we do.', 'Choose the service that fits your research, learning or technical challenge.'],
         'research-development': ['Research & development', 'Evidence into innovation.', 'Explore our research areas, methods and prototype work.'],
         'training-workshops': ['Training & workshops', 'Learn by doing.', 'Practical sessions for students, researchers and teams.'],
         'consultancy-services': ['Consultancy services', 'A clearer path forward.', 'Technical guidance from problem definition through delivery.'],
-        internships: ['Internships', 'Grow through real work.', 'Explore opportunities to learn, research and build.'],
     };
-    const [categoryLabel, categoryHeadline, categoryDescription] = categoryDetails[selectedCategory] || categoryDetails['research-development'];
+    const [categoryLabel, categoryHeadline, categoryDescription] = categoryDetails[selectedCategory] || categoryDetails.overview;
     const [expanded, setExpanded] = useState(null);
     const sectionRef = useRef(null);
     useEffect(() => {
@@ -316,6 +318,14 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {!selectedCategory && <section className="services-overview" aria-label="Explore services">
+        {serviceLinks.map(([label, href]) => <Link href={href} key={href} className="services-overview-card">
+          <span className="program-kicker">SCITISENSE SERVICES</span>
+          <h2>{label}</h2>
+          <span>Explore service <ArrowRight size={17} aria-hidden="true" /></span>
+        </Link>)}
+      </section>}
+
       {/* ACCORDION CARDS */}
       {selectedCategory === 'research-development' && <section id="research-development" ref={sectionRef} style={{
             padding: '80px 40px',
@@ -335,7 +345,7 @@ export default function ServicesPage() {
             <span className="text-gradient-teal">Domains</span>
           </h2>
           <p style={{ color: '#465d6e', fontSize: '1.05rem', maxWidth: 600, margin: '0 auto' }}>
-            Explore our current research features, from algorithm design and prototypes to practical deployment.
+            Explore representative projects and the research deliverables we can provide.
           </p>
         </div>
 
@@ -435,35 +445,7 @@ export default function ServicesPage() {
                         gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
                         gap: 32,
                     }}>
-                      {/* Col 1: Algorithms */}
-                      <div>
-                        <h4 style={{
-                        fontSize: 14, fontWeight: 700,
-                        color: '#172b3a', marginBottom: 20,
-                        display: 'flex', alignItems: 'center', gap: 8,
-                    }}>
-                          <span style={{
-                        width: 8, height: 8, borderRadius: '50%',
-                        background: '#284f87', flexShrink: 0,
-                        display: 'inline-block',
-                    }}/>
-                          Algorithms & Technologies
-                        </h4>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                          {Object.entries(svc.algorithms).map(([cat, items]) => (<div key={cat}>
-                              <div style={{
-                            fontSize: 10, fontWeight: 700,
-                            letterSpacing: '0.1em', textTransform: 'uppercase',
-                            color: '#4c6373', marginBottom: 8,
-                        }}>{cat}</div>
-                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                                {items.map(item => (<span key={item} className="algo-chip">{item}</span>))}
-                              </div>
-                            </div>))}
-                        </div>
-                      </div>
-
-                      {/* Col 2: Projects */}
+                      {/* Representative projects */}
                       <div>
                         <h4 style={{
                         fontSize: 14, fontWeight: 700,
@@ -496,7 +478,7 @@ export default function ServicesPage() {
                         </ul>
                       </div>
 
-                      {/* Col 3: Deliverables + Tools */}
+                      {/* Research deliverables */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                         <div>
                           <h4 style={{
@@ -520,32 +502,6 @@ export default function ServicesPage() {
                               </div>))}
                           </div>
                         </div>
-
-                        <div>
-                          <h4 style={{
-                        fontSize: 14, fontWeight: 700,
-                        color: '#172b3a', marginBottom: 12,
-                        display: 'flex', alignItems: 'center', gap: 8,
-                    }}>
-                            <span style={{
-                        width: 8, height: 8, borderRadius: '50%',
-                        background: '#06C', flexShrink: 0,
-                        display: 'inline-block',
-                    }}/>
-                            Tools & Platforms
-                          </h4>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                            {svc.tools.map(tool => (<span key={tool} style={{
-                            padding: '4px 10px',
-                            background: '#edf4f7',
-                            border: '1px solid #d7e2e8',
-                            borderRadius: 6,
-                            fontSize: 12, fontWeight: 500,
-                            color: '#465d6e',
-                        }}>{tool}</span>))}
-                          </div>
-                        </div>
-
 
                       </div>
                     </div>

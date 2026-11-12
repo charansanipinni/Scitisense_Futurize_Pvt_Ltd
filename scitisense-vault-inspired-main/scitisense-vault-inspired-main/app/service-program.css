@@ -1,8 +1,22 @@
 .program-page{color:#172b3a;background:#f6f9fb}
+.careers-heading{padding:180px 24px 60px;text-align:center;background:#112335;color:#dbe9f0}
+.careers-heading h1{margin:14px 0;color:#f6f9fb;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1.08;letter-spacing:-.045em}
+.careers-heading p{margin:0;color:#cfdfeb;font-size:1.05rem}
+.careers-heading .program-kicker{color:#bcd5e8}
+.careers-opportunities{width:min(960px,calc(100% - 48px));margin:0 auto;padding:70px 0 100px}
+.careers-opportunities h2{margin:0 0 24px;color:#172b3a;font-size:clamp(1.7rem,3vw,2.5rem)}
+.careers-opportunity{display:flex;flex-direction:column;gap:12px;padding:32px;border:1px solid #d7e2e8;border-radius:20px;background:#fff;color:#465d6e;text-decoration:none;transition:box-shadow .2s,transform .2s}
+.careers-opportunity:hover{box-shadow:0 15px 40px -25px #33569566;transform:translateY(-3px)}
+.careers-opportunity strong{color:#172b3a;font-size:1.5rem}
+.services-overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;width:min(1100px,calc(100% - 48px));margin:0 auto;padding:70px 0 100px}
+.services-overview-card{display:flex;flex-direction:column;gap:18px;min-height:220px;padding:32px;border:1px solid #d7e2e8;border-radius:20px;background:#fff;text-decoration:none;transition:box-shadow .2s,transform .2s}
+.services-overview-card:hover{box-shadow:0 15px 40px -25px #33569566;transform:translateY(-3px)}
+.services-overview-card h2{margin:0;color:#172b3a;font-size:1.45rem}
+.services-overview-card>span:last-child{display:inline-flex;align-items:center;gap:8px;margin-top:auto;color:#284f87;font-size:14px;font-weight:700}
+@media(max-width:760px){.services-overview{grid-template-columns:1fr}}
+@media(max-width:1000px){.careers-heading{padding-top:220px}}
 .program-page *{box-sizing:border-box}
 .program-photo{margin:0;min-width:0}
-.program-photo figcaption{font-size:11px;line-height:1.6;color:#536d7f;padding:12px 3px 0}
-.program-photo figcaption a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .program-practice{max-width:1280px;padding:95px 40px 0;margin:auto}
 .program-example{display:grid;grid-template-columns:1.2fr 1fr;border:1px solid #d7e2e8;border-radius:22px;overflow:hidden;background:#fff}
 .program-example>div,.program-example aside{padding:36px}

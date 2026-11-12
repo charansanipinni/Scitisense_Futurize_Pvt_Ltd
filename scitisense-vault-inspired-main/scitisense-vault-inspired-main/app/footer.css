@@ -4,8 +4,11 @@
   color: #dbe9f0;
   border-top: 0;
   padding-top: 52px;
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto 40px;
+  border-radius: 20px;
 }
-.reference-footer .section-shell { width: min(1280px, calc(100% - 80px)); }
+.reference-footer .section-shell { width: min(1000px, calc(100% - 80px)); }
 .reference-footer-header {
   display: flex;
   align-items: center;
@@ -90,7 +93,7 @@
   .reference-footer-columns nav > a, .reference-footer-detail { font-size: 14px; }
 }
 @media (max-width: 600px) {
-  .reference-footer { padding-top: 40px; }
+  .reference-footer { padding-top: 40px; width: calc(100% - 24px); margin-bottom: 12px; }
   .reference-footer-header { align-items: flex-start; flex-direction: column; }
   .reference-footer .company-brand-name { font-size: 19px; }
   .reference-footer-identity p { font-size: 12px; }

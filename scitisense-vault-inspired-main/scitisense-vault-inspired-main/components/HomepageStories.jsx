@@ -1,6 +1,7 @@
 "use client";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 const ease = [0.22, 1, 0.36, 1];
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const STORIES = [
@@ -105,10 +106,10 @@ function StoryCard({ story, index, noMotion, }) {
       </div>
 
       {/* CTA */}
-      <a href="/stories" className="inline-flex items-center gap-1.5 text-sm font-semibold mt-1" style={{ color: "#A371F7", width: "fit-content" }} onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")} onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}>
-        Read Full Story
+      <Link href="/services/research-development" className="inline-flex items-center gap-1.5 text-sm font-semibold mt-1" style={{ color: "#A371F7", width: "fit-content" }} onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")} onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}>
+        Explore Research
         <ArrowRight size={14} strokeWidth={2.5}/>
-      </a>
+      </Link>
     </motion.div>);
 }
 // ─── Section ──────────────────────────────────────────────────────────────────
@@ -164,7 +165,7 @@ export default function HomepageStories() {
 
         {/* ── Footer CTA ── */}
         <motion.div initial={noMotion ? false : { opacity: 0, y: 16 }} whileInView={noMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: false, margin: "-40px" }} transition={{ duration: 0.55, delay: 0.3, ease }} style={{ textAlign: "center", marginTop: "48px" }}>
-          <motion.a href="/stories" className="inline-flex items-center gap-2 font-semibold text-sm" style={{
+          <motion.a href="/services/research-development" className="inline-flex items-center gap-2 font-semibold text-sm" style={{
             color: "#E6EDF3",
             border: "1px solid #30363D",
             borderRadius: "999px",

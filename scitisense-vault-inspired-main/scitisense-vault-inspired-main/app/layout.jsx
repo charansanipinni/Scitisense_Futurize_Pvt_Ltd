@@ -9,6 +9,7 @@ import "./new-sections.css";
 import "./service-program.css";
 import "./footer.css";
 import NavbarLight from "@/components/NavbarLight";
+import Footer from "@/components/Footer";
 import SmoothScrollProvider from "@/lib/lenis";
 import PageTransition from "@/components/PageTransition";
 import SiteEffects from "@/components/SiteEffects";
@@ -82,6 +83,7 @@ export default function RootLayout({ children, }) {
         <SmoothScrollProvider>
           <NavbarLight />
           <PageTransition>{children}</PageTransition>
+          <Footer />
         </SmoothScrollProvider>
         <SiteEffects />
         <WhatsAppButton />

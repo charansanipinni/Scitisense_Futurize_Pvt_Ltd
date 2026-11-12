@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
-export default function CTABand({ heading = <>Ready to <span className="text-gradient-teal">Co-Innovate With Us?</span></>, subtext = "Partner with Scitisense Futurize for cutting-edge scientific research, AI product development, and medical IT solutions.", primary = { label: "Book a Free Consult", href: "/contact" }, secondary = { label: "View Success Stories", href: "/stories" }, }) {
+export default function CTABand({ heading = <>Ready to <span className="text-gradient-teal">Co-Innovate With Us?</span></>, subtext = "Partner with Scitisense Futurize for cutting-edge scientific research, AI product development, and medical IT solutions.", primary = { label: "Book a Free Consult", href: "/contact" }, secondary = { label: "Explore Research", href: "/services/research-development" }, }) {
     const ref = useRef(null);
     const [visible, setVisible] = useState(false);
     useEffect(() => {
