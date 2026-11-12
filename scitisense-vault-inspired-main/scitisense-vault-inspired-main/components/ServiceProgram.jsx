@@ -2,24 +2,68 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { programDetails } from "@/lib/program-details";
+import WorkshopEnquiryButton from "./WorkshopEnquiryButton";
 
 const programs = {
   "training-workshops": {
-    eyebrow: "LEARNING, MADE PRACTICAL",
-    title: "Build the skills to make ideas real.",
-    intro: "Technology becomes useful when people can work with it. Our training and workshop conversations start with your audience and end with something they can explain, test, or build.",
-    image: "/programs/training-workshops.webp",
-    alt: "Illustrative image of researchers learning together around a computer vision prototype",
-    imageLabel: "LEARN / EXPERIMENT / APPLY",
-    audience: "For students, researchers, educators and teams exploring new technical capabilities.",
-    sectionLabel: "WHAT WE CAN EXPLORE",
-    sectionTitle: "A workshop shaped around your next step.",
-    sectionIntro: "Choose a starting point or bring us a challenge. Topics can be adapted to the experience level and goals of the group.",
+    sectionLabel: "TRAINING & WORKSHOPS",
+    sectionTitle: "Explore our training programmes.",
+    sectionIntro: "Choose a focus area. We shape the exercises around your group’s experience and learning goals.",
     cards: [
-      { number: "01", title: "AI & machine learning", text: "Move from model concepts to data preparation, experimentation, evaluation and practical limitations." },
-      { number: "02", title: "Computer vision", text: "Explore image understanding through detection, classification and hands-on visual data exercises." },
-      { number: "03", title: "IoT & wearable systems", text: "Connect sensors, embedded devices and data flows to a meaningful real-world use case." },
-      { number: "04", title: "Generative & agentic AI", text: "Understand workflows, prompting, retrieval, evaluation and where human oversight matters." },
+      {
+        title: "IoT & IIoT",
+        text: "Connect devices, collect useful data and explore industrial automation.",
+        topics: [
+          "Sensors, microcontrollers and device connectivity",
+          "Cloud dashboards and real-time data",
+          "Industrial monitoring and automation prototypes",
+        ],
+      },
+      {
+        title: "VLSI design & embedded systems",
+        text: "Develop a practical foundation in digital hardware and embedded programming.",
+        topics: [
+          "Digital logic and hardware description languages",
+          "Embedded programming and peripheral interfacing",
+          "Simulation, testing and system integration",
+        ],
+      },
+      {
+        title: "PCB design",
+        text: "Work from a circuit concept toward a board ready for prototyping.",
+        topics: [
+          "Schematic capture and component selection",
+          "Board layout, routing and design checks",
+          "Prototype assembly and circuit debugging",
+        ],
+      },
+      {
+        title: "Robotics",
+        text: "Bring sensing, programming and motion together in working robotic systems.",
+        topics: [
+          "Sensors, actuators and motion control",
+          "Robot programming and embedded integration",
+          "Navigation and automation exercises",
+        ],
+      },
+      {
+        title: "Generative & explainable AI",
+        text: "Build AI applications and explore how to interpret model outputs.",
+        topics: [
+          "Generative models and prompt design",
+          "Retrieval-augmented AI applications",
+          "Model interpretation and output evaluation",
+        ],
+      },
+      {
+        title: "Agentic AI",
+        text: "Design AI workflows that plan tasks, use tools and coordinate actions.",
+        topics: [
+          "Tool use and multi-step task planning",
+          "Building and coordinating AI workflows",
+          "Testing, monitoring and human review",
+        ],
+      },
     ],
     journeyLabel: "HOW LEARNING TAKES SHAPE",
     journeyTitle: "Learn it. Try it. Take it forward.",
@@ -33,31 +77,72 @@ const programs = {
     ctaLabel: "Discuss a workshop",
   },
   "consultancy-services": {
-    eyebrow: "CONSULTANCY / FROM QUESTION TO DIRECTION",
-    title: "See the next move more clearly.",
-    intro: "When a technical opportunity is promising but the path is uncertain, we help connect the research, the constraints and the decisions. The aim is a direction your team can test and build on.",
+    eyebrow: "RESEARCH & CONSULTANCY",
+    title: "Support for every stage of research.",
+    intro: "From proposals and project implementation to IPR, books and conferences, we help researchers and institutions move their work forward.",
     image: "/programs/consultancy-services.webp",
     alt: "Illustrative image of consultants discussing an AI and IoT system architecture",
-    imageLabel: "THINK AHEAD / BUILD WITH PURPOSE",
-    audience: "For organisations, research teams and product builders making consequential technology choices.",
+    imageLabel: "RESEARCH / DEVELOP / PUBLISH",
+    audience: "For researchers, authors, academic institutions and organisations developing new ideas.",
     sectionLabel: "WHERE WE CAN HELP",
-    sectionTitle: "Clarity for the decisions ahead.",
-    sectionIntro: "We can join at the earliest question, during a technical review, or as an idea moves toward a prototype.",
+    sectionTitle: "Research, delivery and publication.",
+    sectionIntro: "Focused support for preparing, implementing, protecting and sharing your work.",
     cards: [
-      { number: "01", title: "Opportunity discovery", text: "Frame the problem, users, data and constraints before a technology choice becomes a commitment." },
-      { number: "02", title: "AI feasibility", text: "Examine whether a proposed AI approach has the data, evaluation plan and operational fit to be worth testing." },
-      { number: "03", title: "Architecture & roadmap", text: "Connect models, devices, integrations and people in a practical sequence of decisions and milestones." },
-      { number: "04", title: "Prototype & technical review", text: "Pressure-test assumptions through a focused proof of concept, system review or independent technical perspective." },
+      {
+        title: "Research proposals & guidance",
+        text: "Turn a research question into a clearly structured proposal.",
+        topics: [
+          "Problem framing and literature review guidance",
+          "Objectives, methodology and work plans",
+          "Proposal write-up, review and refinement",
+        ],
+      },
+      {
+        title: "Project implementation & collaboration",
+        text: "Develop ideas through technical delivery and collaborative research.",
+        topics: [
+          "Prototype development and system integration",
+          "Joint research and implementation planning",
+          "Testing, documentation and knowledge sharing",
+        ],
+      },
+      {
+        title: "Patents & IPR filing",
+        text: "Documentation and filing support for your intellectual property.",
+        topics: [
+          "Design patent filing support",
+          "Utility patent documentation and filing support",
+          "Copyright documentation and filing support",
+        ],
+      },
+      {
+        title: "Book publication & ISBN",
+        text: "Support for preparing manuscripts and publishing books with ISBN.",
+        topics: [
+          "Manuscript structure and editorial coordination",
+          "Book preparation and publication support",
+          "ISBN coordination",
+        ],
+      },
+      {
+        title: "Conference collaboration",
+        text: "Bring institutions and researchers together to share their work.",
+        topics: [
+          "Technical programme and theme planning",
+          "Researcher and institutional collaboration",
+          "Conference organisation and publication coordination",
+        ],
+      },
     ],
-    journeyLabel: "AN APPROACH THAT LOOKS FORWARD",
-    journeyTitle: "From today’s question to tomorrow’s system.",
+    journeyLabel: "HOW WE WORK TOGETHER",
+    journeyTitle: "A clear plan for your next milestone.",
     steps: [
-      { number: "01", title: "Understand the context", text: "We listen for the real objective, existing work, risks and the people affected by the solution." },
-      { number: "02", title: "Make the trade-offs visible", text: "We compare viable approaches against evidence, effort, integration and long-term maintainability." },
-      { number: "03", title: "Define the next experiment", text: "We turn the preferred direction into a testable plan, prototype brief or decision framework." },
+      { number: "01", title: "Discuss your objective", text: "Share your research area, current progress and the support you need." },
+      { number: "02", title: "Define the scope", text: "Together, we agree the work, responsibilities, deliverables and schedule." },
+      { number: "03", title: "Develop and review", text: "We work through the agreed milestones with regular review and clear documentation." },
     ],
-    ctaTitle: "Have a complex question in front of you?",
-    ctaText: "Tell us what you are trying to achieve and where the uncertainty sits. We will help identify a useful first conversation.",
+    ctaTitle: "Move your research forward.",
+    ctaText: "Tell us about your proposal, project, filing, book or conference and the support you need.",
     ctaLabel: "Start a consultancy conversation",
   },
   internships: {
@@ -94,24 +179,34 @@ export default function ServiceProgram({ category }) {
   const program = programs[category];
   const detail = programDetails[category];
   if (!program) return null;
+  const isWorkshop = category === "training-workshops";
 
   return <main className="program-page" id={category}>
-    <section className="program-intro" aria-labelledby={`${category}-title`}>
-      <div className="program-intro-copy">
-        <span className="program-kicker">{program.eyebrow}</span>
-        <h2 id={`${category}-title`}>{program.title}</h2>
-        <p className="program-lede">{program.intro}</p>
-        <Link className="program-text-link" href="/contact">{program.ctaLabel}<ArrowUpRight size={18} aria-hidden="true" /></Link>
-      </div>
-      <figure className="program-photo">
-      <div className="program-image-wrap">
-        <Image src={`/programs/${detail.photo}`} alt={detail.alt} fill sizes="(max-width: 760px) 100vw, 50vw" className="program-image" />
-        <span className="program-image-label">{program.imageLabel}</span>
-      </div>
-      </figure>
-    </section>
+    {!isWorkshop && (
+      <section className="program-intro" aria-labelledby={`${category}-title`}>
+        <div className="program-intro-copy">
+          <span className="program-kicker">{program.eyebrow}</span>
+          <h2 id={`${category}-title`}>{program.title}</h2>
+          <p className="program-lede">{program.intro}</p>
+          <Link className="program-text-link" href="/contact">
+            {program.ctaLabel}<ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+        <figure className="program-photo">
+          <div className="program-image-wrap">
+            <Image src={`/programs/${detail.photo}`} alt={detail.alt} fill sizes="(max-width: 760px) 100vw, 50vw" className="program-image" />
+            <span className="program-image-label">{program.imageLabel}</span>
+          </div>
+        </figure>
+      </section>
+    )}
 
-    <div className="program-audience"><span>WHO IT IS FOR</span><p>{program.audience}</p></div>
+    {program.audience && (
+      <div className="program-audience">
+        <span>WHO IT IS FOR</span>
+        <p>{program.audience}</p>
+      </div>
+    )}
 
     <section className="program-offerings" aria-labelledby={`${category}-offerings`}>
       <div className="program-section-heading">
@@ -119,12 +214,30 @@ export default function ServiceProgram({ category }) {
         <h2 id={`${category}-offerings`}>{program.sectionTitle}</h2>
         <p>{program.sectionIntro}</p>
       </div>
-      <div className="program-offerings-grid">
-        {program.cards.map(card => <article className="program-offering" key={card.number}>
-          <span className="program-card-number">{card.number} / 04</span>
-          <h3>{card.title}</h3>
-          <p>{card.text}</p>
-        </article>)}
+      <div
+        className={`program-offerings-grid${
+          isWorkshop || category === "consultancy-services"
+            ? " program-offerings-grid-detailed"
+            : ""
+        }`}
+      >
+        {program.cards.map(card => (
+          <article
+            className={`program-offering${card.topics ? " program-offering-detailed" : ""}`}
+            key={card.title}
+          >
+            {card.number && (
+              <span className="program-card-number">{card.number} / 04</span>
+            )}
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+            {card.topics && (
+              <ul>
+                {card.topics.map(topic => <li key={topic}>{topic}</li>)}
+              </ul>
+            )}
+          </article>
+        ))}
       </div>
     </section>
 
@@ -154,16 +267,20 @@ export default function ServiceProgram({ category }) {
         <h3>Before we get started</h3>
         {detail.questions.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}
       </div>
-      <details className="program-references">
+      {detail.sources.length > 0 && <details className="program-references">
         <summary>Further reading &amp; references</summary>
         <p>Background resources for the concepts on this page. References do not imply affiliation or endorsement.</p>
         <ul>{detail.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} <ArrowUpRight size={14} aria-hidden="true" /></a><p>{source.note}</p></li>)}</ul>
-      </details>
+      </details>}
     </section>
 
     <section className="program-cta" aria-labelledby={`${category}-cta`}>
       <div><span className="program-kicker">LET’S TALK</span><h2 id={`${category}-cta`}>{program.ctaTitle}</h2><p>{program.ctaText}</p></div>
-      <Link href="/contact" className="program-cta-link">{program.ctaLabel}<ArrowRight size={18} aria-hidden="true" /></Link>
+      {isWorkshop ? (
+        <WorkshopEnquiryButton className="program-cta-link">{program.ctaLabel}</WorkshopEnquiryButton>
+      ) : (
+        <Link href="/contact" className="program-cta-link">{program.ctaLabel}<ArrowRight size={18} aria-hidden="true" /></Link>
+      )}
     </section>
   </main>;
 }

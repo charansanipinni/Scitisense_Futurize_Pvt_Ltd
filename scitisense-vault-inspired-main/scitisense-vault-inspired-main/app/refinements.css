@@ -53,6 +53,11 @@ html, body {
 .ambient-halo-one { left: -18%; top: 5%; }
 .ambient-halo-two { right: -14%; bottom: -12%; background: radial-gradient(ellipse, #a9b9d833, #dce5ef11 55%, transparent 72%); animation-delay: -14s; animation-direction: alternate-reverse; }
 .ambient-background[data-paused="true"] *, .ambient-background[data-offscreen="true"] * { animation-play-state: paused; }
+.ambient-field, .ambient-points,
+.ambient-background:not(.ambient-contained) .ambient-halo {
+  animation: none;
+  will-change: auto;
+}
 @keyframes atmosphere-drift { from { transform: translate3d(-15px, -9px, 0) rotate(-1deg); } to { transform: translate3d(15px, 14px, 0) rotate(1deg); } }
 @keyframes atmosphere-pulse { from { opacity: .2; } to { opacity: .6; } }
 @keyframes halo-drift { from { transform: translate3d(-2%, -3%, 0) scale(.95); } to { transform: translate3d(12%, 8%, 0) scale(1.08); } }

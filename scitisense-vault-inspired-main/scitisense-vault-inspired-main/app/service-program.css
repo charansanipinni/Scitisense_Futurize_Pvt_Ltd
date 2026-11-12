@@ -69,3 +69,133 @@
 @media(max-width:520px){.program-offerings-grid{grid-template-columns:1fr}.program-offering{min-height:0}.program-offering h3{margin:28px 0 10px}.program-image-label{left:12px;bottom:12px;font-size:9px}.program-cta-link{width:100%}}
 @media(max-width:760px){.services-overview{grid-template-columns:1fr}.program-text-link{min-height:44px}.program-cta-link{text-align:center}}
 @media(prefers-reduced-motion:reduce){.program-image,.program-offering,.program-text-link,.program-cta-link{transition:none}.program-image-wrap:hover .program-image,.program-offering:hover,.program-cta-link:hover{transform:none}}
+
+.program-offerings-grid.program-offerings-grid-detailed {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+.program-offering.program-offering-detailed {
+  min-height: 0;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 1rem;
+}
+
+.program-offering-detailed h3 {
+  margin: 0 0 .75rem;
+  color: #284f87;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.program-offering-detailed p {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.program-offering-detailed ul {
+  display: grid;
+  gap: .625rem;
+  margin: 1.25rem 0 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+  color: #29465a;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.program-offering-detailed li {
+  padding-left: .25rem;
+}
+
+.program-offering-detailed li::marker {
+  color: #7899ab;
+}
+
+@media (min-width: 768px) {
+  .program-offerings-grid.program-offerings-grid-detailed {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .program-offerings-grid-detailed > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+button.program-cta-link {
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.workshop-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(42rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  margin: auto;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid #c2d2de;
+  border-radius: 1rem;
+  background: #fff;
+  color: #172b3a;
+  box-shadow: 0 1.5rem 5rem #08121e40;
+}
+
+.workshop-dialog::backdrop {
+  background: #08121e99;
+}
+
+.workshop-dialog-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #d7e2e8;
+  background: #fff;
+}
+
+.workshop-dialog-header h2 {
+  margin: 0;
+  font-size: clamp(1.375rem, 4vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -.025em;
+}
+
+.workshop-dialog-close {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: .5rem;
+  background: #e8f0f6;
+  color: #172b3a;
+  cursor: pointer;
+}
+
+.workshop-dialog-content {
+  padding: 1.5rem;
+}
+
+.workshop-dialog :is(input, select, textarea) {
+  font-size: 1rem !important;
+  line-height: 1.5;
+}
+
+.workshop-dialog .btn-primary-light {
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: #284f87;
+  color: #fff;
+}

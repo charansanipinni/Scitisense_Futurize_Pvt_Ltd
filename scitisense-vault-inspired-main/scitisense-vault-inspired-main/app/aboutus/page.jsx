@@ -1,12 +1,14 @@
 "use client";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useIsStaticRenderer as useReducedMotionPreference } from "@/components/framer/runtime";
 import { Lightbulb, ShieldCheck, Layers, Zap } from "lucide-react";
 import { hexToRgb } from "@/lib/services-data";
 import Image from "next/image";
+import HeroBackground from "@/components/HeroBackground";
 const ease = [0.22, 1, 0.36, 1];
 function fadeUp(noMotion, delay = 0) {
     if (noMotion)
-        return { initial: false };
+        return { initial: false, animate: { opacity: 1, y: 0 }, transition: { duration: 0 } };
     return {
         initial: { opacity: 0, y: 28 },
         whileInView: { opacity: 1, y: 0 },
@@ -15,10 +17,6 @@ function fadeUp(noMotion, delay = 0) {
     };
 }
 // ─── Data ─────────────────────────────────────────────────────────────────────
-const DESCRIPTION_PARAGRAPHS = [
-    "Scitisense Futurize brings scientific research and intelligent technology together to solve practical challenges in healthcare and industry.",
-    "We work with partners from the first research question through prototyping and implementation, combining rigorous methods with hands-on engineering.",
-];
 const PARTNER_CARDS = [
     {
         icon: Lightbulb,
@@ -82,27 +80,21 @@ function InfoCard({ icon: Icon, color, title, body, noMotion, delay, }) {
 }
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function AboutUs() {
-    const noMotion = useReducedMotion() === true;
+    const noMotion = useReducedMotionPreference();
     return (<>
       <main className="relative" style={{ backgroundColor: "transparent" }}>
 
         {/* ── Company description ──────────────────────────────────────────── */}
-        <section className="site-page-hero" style={{ paddingTop: "160px", paddingBottom: "65px" }}>
-          <div className="container px-5 md:px-8" style={{ maxWidth: "960px", marginInline: "auto" }}>
-            <div className="interior-heading">
-              <span className="eyebrow">ABOUT SCITISENSE FUTURIZE</span>
-              <h1>Curiosity.<br />Made <span className="muted-blue">useful.</span></h1>
-              <p>Scientific thinking and intelligent technology.<br />Built around the possibilities ahead.</p>
+        <section className="site-page-hero about-hero" data-hero-reveal aria-labelledby="about-company-title">
+          <HeroBackground />
+          <div className="about-hero-content section-shell">
+            <div className="about-hero-heading">
+              <span className="eyebrow">ABOUT US</span>
+              <h1 id="about-company-title">Research into<br />real-world solutions.</h1>
             </div>
-            <div className="flex flex-col" style={{ gap: "24px" }}>
-              {DESCRIPTION_PARAGRAPHS.map((p, i) => (<motion.p key={i} {...fadeUp(noMotion, i * 0.1)} style={{
-                fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)",
-                color: "var(--text-secondary)",
-                lineHeight: 1.85,
-            }}>
-                  {p}
-                </motion.p>))}
-            </div>
+            <p className="about-hero-description">
+              We build AI and technology solutions for healthcare and industry.
+            </p>
           </div>
         </section>
 

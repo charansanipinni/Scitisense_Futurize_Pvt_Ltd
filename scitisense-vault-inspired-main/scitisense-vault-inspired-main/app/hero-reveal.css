@@ -1,0 +1,123 @@
+﻿:root {
+  --header-clearance: clamp(9rem, 12vw, 11rem);
+}
+
+[data-hero-reveal] {
+  isolation: isolate;
+}
+
+.site-page [data-hero-reveal] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.site-page-hero[data-hero-reveal],
+.careers-heading[data-hero-reveal] {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-animated-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+  background:
+    radial-gradient(ellipse at 75% 40%, var(--hero-wave-one), transparent 65%),
+    linear-gradient(var(--hero-wave-angle), #08121e 25%, var(--hero-wave-two));
+}
+
+.hero-animated-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #08121ee6, #08121e99 40%, #08121eb3);
+}
+
+.hero-animated-background canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.site-page .careers-heading {
+  padding-top: var(--header-clearance);
+}
+
+.hero-composition section.hero-introduction {
+  padding-top: var(--header-clearance);
+}
+
+.hero-composition section.hero-introduction[data-hero-reveal] {
+  height: auto;
+  align-items: stretch;
+}
+
+.hero-introduction[data-hero-reveal]::before {
+  content: none;
+}
+
+.interior-page section.about-hero {
+  display: flex;
+  align-items: center;
+  padding-bottom: clamp(3rem, 6vw, 5rem) !important;
+  text-align: left;
+}
+
+.about-hero .hero-animated-background::after {
+  background:
+    linear-gradient(180deg, #08121ed9, transparent 40%, #08121e66),
+    linear-gradient(90deg, #08121ef2, #08121eb3 45%, #08121e26);
+}
+
+.about-hero-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.about-hero-heading {
+  max-width: 42rem;
+}
+
+.about-hero-heading .eyebrow {
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+}
+
+.interior-page .about-hero h1 {
+  margin: 0;
+  max-width: none;
+  font-size: clamp(2.25rem, 4.5vw, 3.75rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.035em !important;
+  font-weight: 500 !important;
+}
+
+.about-hero-description {
+  max-width: 42ch;
+  margin: 0;
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.75;
+}
+
+@media (max-width: 767px) {
+  .about-hero .about-hero-content {
+    width: 100%;
+  }
+
+  .hero-animated-background::after {
+    background: linear-gradient(180deg, #08121ee6, #08121eb3 40%, #08121ebf);
+  }
+
+  .about-hero .hero-animated-background::after {
+    background: linear-gradient(90deg, #08121ed9, #08121e99);
+  }
+}

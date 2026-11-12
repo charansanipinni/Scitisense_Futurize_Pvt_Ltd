@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import ServiceProgram from "@/components/ServiceProgram";
 import { serviceLinks } from "@/lib/site-links";
+import HeroBackground from "@/components/HeroBackground";
 const services = [
     {
         id: 'computer-vision',
@@ -235,8 +236,8 @@ export default function ServicesPage() {
     const categoryDetails = {
         overview: ['Services', 'Explore what we do.', 'Choose the service that fits your research, learning or technical challenge.'],
         'research-development': ['Research & development', 'Evidence into innovation.', 'Explore our research areas, methods and prototype work.'],
-        'training-workshops': ['Training & workshops', 'Learn by doing.', 'Practical sessions for students, researchers and teams.'],
-        'consultancy-services': ['Consultancy services', 'A clearer path forward.', 'Technical guidance from problem definition through delivery.'],
+        'training-workshops': ['Training & workshops', 'Learn by doing.', 'Practical training in connected systems, electronics, robotics and AI.'],
+        'consultancy-services': ['Consultancy services', 'A clearer path forward.', 'Support for research, project delivery, intellectual property and publishing.'],
     };
     const [categoryLabel, categoryHeadline, categoryDescription] = categoryDetails[selectedCategory] || categoryDetails.overview;
     const [expanded, setExpanded] = useState(null);
@@ -260,18 +261,6 @@ export default function ServicesPage() {
             .forEach(el => observer.observe(el));
         return () => observer.disconnect();
     }, []);
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            sectionRef.current?.querySelectorAll('.spotlight-card')
-                .forEach(card => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-            });
-        };
-        document.addEventListener('mousemove', handleMouseMove);
-        return () => document.removeEventListener('mousemove', handleMouseMove);
-    }, []);
     return (<div style={{
             background: '#f6f9fb',
             minHeight: '100vh',
@@ -279,20 +268,14 @@ export default function ServicesPage() {
         }}>
 
       {/* HERO */}
-      <section className="site-page-hero" style={{
+      <section className="site-page-hero" data-hero-reveal style={{
             paddingTop: 140, paddingBottom: 80,
             paddingInline: 40,
             textAlign: 'center',
             position: 'relative',
             background: 'linear-gradient(180deg, #edf4f7 0%, #f6f9fb 60%, #ffffff 100%)',
         }}>
-        {/* Grid bg */}
-        <div style={{
-            position: 'absolute', inset: 0, zIndex: 0,
-            backgroundImage: 'linear-gradient(rgba(51,86,149,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(51,86,149,0.04) 1px, transparent 1px)',
-            backgroundSize: '80px 80px',
-            pointerEvents: 'none',
-        }}/>
+        <HeroBackground />
 
         <div style={{ position: 'relative', zIndex: 1 }}>
           <span className="tag-pill-light" style={{ marginBottom: 20, display: 'inline-flex' }}>

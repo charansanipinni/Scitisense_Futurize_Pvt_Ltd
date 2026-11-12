@@ -6,7 +6,7 @@ import { RotateCcw } from "lucide-react";
 const description = "Scitisense research brief: define the challenge, build the evidence, deliver the solution.";
 const image = "/framer/research-brief.svg";
 function PaperPreview() {
-    return <img className="research-paper-preview" src={image} alt={description} width={840} height={1050}/>;
+    return <img className="research-paper-preview" src={image} alt={description} width={840} height={1050} loading="lazy" decoding="async"/>;
 }
 const CrumpledPaperReveal = dynamic(() => import("./framer/CrumpledPaperReveal"), {
     ssr: false,

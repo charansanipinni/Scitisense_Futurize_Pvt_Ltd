@@ -1,17 +1,53 @@
 "use client";
 import { useReducedMotion, useInView } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import dynamic from "next/dynamic";
 import { BRAND } from "@/lib/theme";
 import Rotator from "./framer/AnimatedTextRotator";
 import RevealText from "./framer/ScrollRevealText";
 import Counter from "./framer/CounterFX";
-import Hands from "./framer/HalftoneHands";
-import Particles from "./framer/ParticleText";
+const Hands = dynamic(() => import("./framer/HalftoneHands"), { ssr: false });
+const Particles = dynamic(() => import("./framer/ParticleText"), { ssr: false });
+const subscribeHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
 export function AnimatedTextRotator({ color = BRAND.accent }) {
-    const reduced = useReducedMotion();
-    return <span className="rotator" aria-label="intelligent, connected, human">
-    <span aria-hidden="true"><Rotator {...Rotator.defaultProps} words={reduced ? ["intelligent."] : ["intelligent.", "connected.", "human."]} size={88} fitToFrame={false} color={color} effect="blur" hold={2.5} caret={false} splitBy="words" font={{ fontFamily: "inherit", fontWeight: 500, letterSpacing: "-0.065em" }}/></span>
-  </span>;
+  const reduced = useReducedMotion();
+  const hydrated = useSyncExternalStore(
+    subscribeHydration,
+    clientSnapshot,
+    serverSnapshot,
+  );
+  return (
+    <span className="rotator" aria-label="intelligent, connected, human">
+      <span aria-hidden="true">
+        {!hydrated || reduced ? (
+          <span style={{ color }}>intelligent.</span>
+        ) : (
+          <Rotator
+            {...Rotator.defaultProps}
+            words={["intelligent.", "connected.", "human."]}
+            size={88}
+            fitToFrame={false}
+            color={color}
+            effect="slide"
+            addBlur={false}
+            duration={0.4}
+            exitDuration={0.25}
+            hold={2.5}
+            caret={false}
+            splitBy="words"
+            font={{
+              fontFamily: "inherit",
+              fontWeight: 500,
+              letterSpacing: "-0.065em",
+            }}
+          />
+        )}
+      </span>
+    </span>
+  );
 }
 export function ScrollRevealText({ text }) {
     const reduced = useReducedMotion();
@@ -19,10 +55,59 @@ export function ScrollRevealText({ text }) {
 }
 export function CounterFX({ value, suffix = "" }) {
     const reduced = useReducedMotion();
-    return <span className="counter-wrap" aria-label={`${value}${suffix}`}><span aria-hidden="true"><Counter from={reduced ? value : 0} to={value} duration={1.8} easing="smooth" decimals={0} prefix="" suffix={suffix} showThousandSep={false} tint={BRAND.ink} triggerMode="inView" sectionName="" htmlTag="span" font={{ fontSize: 52, fontWeight: 500, fontFamily: "inherit", letterSpacing: "-0.05em", lineHeight: "1em" }}/></span></span>;
+    const hydrated = useSyncExternalStore(subscribeHydration, clientSnapshot, serverSnapshot);
+    return <span className="counter-wrap" aria-label={`${value}${suffix}`}><span aria-hidden="true">{!hydrated || reduced ? <span className="counter-static">{value}{suffix}</span> : <Counter from={0} to={value} duration={1.8} easing="smooth" decimals={0} prefix="" suffix={suffix} showThousandSep={false} tint={BRAND.ink} triggerMode="inView" sectionName="" htmlTag="span" font={{ fontSize: 52, fontWeight: 500, fontFamily: "inherit", letterSpacing: "-0.05em", lineHeight: "1em" }}/>}</span></span>;
 }
 export function HalftoneHands() {
-    return <div className="halftone-art" aria-hidden="true"><Hands theme={{ initial: "custom", switcher: false, vignette: false, scanlines: false }} custom={{ background: "#dbe9f0", inkA: "#315b8d", inkB: "#7899ab", dark: false }} hands={{ sheetUrl: "/framer/halftone-hands.webp", width: 48, centerY: 50, gap: 4 }} dots={{ density: 155, rowGap: 1.65, size: 88 }} motion={{ loop: 16, speed: 0.9, drift: 65, breathe: 60, roll: 45, morph: true, glitch: false, shimmer: 35, intro: true }}/></div>;
+  const ref = useRef(null);
+  const [compact, setCompact] = useState(false);
+  const nearViewport = useInView(ref, { once: true, margin: "200px" });
+  useEffect(() => {
+    const observer = new ResizeObserver(([entry]) => {
+      setCompact(entry.contentRect.width < 600);
+    });
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className="halftone-art" aria-hidden="true">
+      {nearViewport && (
+        <Hands
+          theme={{
+            initial: "custom",
+            switcher: false,
+            vignette: false,
+            scanlines: false,
+          }}
+          custom={{
+            background: "#dbe9f0",
+            inkA: "#315b8d",
+            inkB: "#7899ab",
+            dark: false,
+          }}
+          hands={{
+            sheetUrl: "/framer/halftone-hands.webp",
+            width: compact ? 30 : 47,
+            centerY: 50,
+            bleed: 2.5,
+            gap: 8,
+          }}
+          dots={{ density: compact ? 70 : 110, rowGap: 1.65, size: 88 }}
+          motion={{
+            loop: 16,
+            speed: 0.9,
+            drift: 12,
+            breathe: 15,
+            roll: 0,
+            morph: true,
+            glitch: false,
+            shimmer: 20,
+            intro: true,
+          }}
+        />
+      )}
+    </div>
+  );
 }
 export function ParticleText() {
     const reduced = useReducedMotion();

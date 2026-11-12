@@ -1,5 +1,6 @@
 "use client";
 import { motion, useReducedMotion } from "motion/react";
+import HeroBackground from "@/components/HeroBackground";
 import { Settings2, Activity, Package, Users, Shield, Headphones, Zap, Lock, ChevronRight, } from "lucide-react";
 const ease = [0.22, 1, 0.36, 1];
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -48,11 +49,12 @@ export default function WhatWeDo() {
       <main className="relative" style={{ backgroundColor: "transparent" }}>
 
         {/* ── Hero banner ───────────────────────────────────────────────────── */}
-        <section className="site-page-hero relative flex items-center justify-center text-center overflow-hidden" style={{
+        <section className="site-page-hero relative flex items-center justify-center text-center overflow-hidden" data-hero-reveal style={{
             paddingTop: "160px",
             paddingBottom: "80px",
             background: "linear-gradient(180deg, #edf4f7 0%, #f6f9fb 60%, #ffffff 100%)",
         }}>
+          <HeroBackground />
           <div className="container px-5 md:px-8">
             <motion.p className="text-[0.68rem] font-semibold tracking-[0.16em] uppercase mb-4" style={{ color: "var(--accent)" }} {...fadeUp(noMotion)}>
               Our Services

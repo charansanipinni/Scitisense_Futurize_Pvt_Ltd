@@ -1,76 +1,19 @@
 "use client";
-import { useState } from "react";
+import HeroBackground from "@/components/HeroBackground";
+import ContactForm from "@/components/ContactForm";
 import { Mail, Phone, MapPin, FlaskConical, ArrowRight } from "lucide-react";
-const SERVICE_OPTIONS = [
-    "Computer Vision",
-    "IoT & Wearable",
-    "ML & DL",
-    "NLP & LLM",
-    "Generative AI",
-    "Agentic AI",
-    "Medical IT",
-    "Training & Consultancy",
-    "General",
-];
-const FIELD_STYLE = {
-    background: "#edf4f7",
-    border: "1px solid #d7e2e8",
-    borderRadius: 12,
-    padding: "14px 16px",
-    fontSize: 14,
-    color: "#172b3a",
-    width: "100%",
-    outline: "none",
-    transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-};
-const LABEL_STYLE = {
-    display: "block",
-    fontSize: 12,
-    fontWeight: 600,
-    color: "#465d6e",
-    marginBottom: 6,
-};
-function focusField(e) {
-    e.target.style.borderColor = "#284f87";
-    e.target.style.boxShadow = "0 0 0 3px rgba(51,86,149,0.12)";
-}
-function blurField(e) {
-    e.target.style.borderColor = "#d7e2e8";
-    e.target.style.boxShadow = "none";
-}
+
 export default function Contact() {
-    const [form, setForm] = useState({ name: "", phone: "", email: "", service: "", message: "" });
-    const [sending, setSending] = useState(false);
-    const [feedback, setFeedback] = useState(null);
-    const handleChange = (e) => setForm((v) => ({ ...v, [e.target.name]: e.target.value }));
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (sending) return;
-        const website = new FormData(e.currentTarget).get("website");
-        setSending(true);
-        setFeedback(null);
-        try {
-            const response = await fetch("/api/contact", {
-                method: "POST", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...form, website }),
-            });
-            const result = await response.json();
-            if (!response.ok || !result.success) throw new Error(result.error || "Unable to send your message. Please try again.");
-            setFeedback({ success: true, message: "Your message has been submitted to our email service for info@scitisensefuturize.in. Thank you for getting in touch." });
-            setForm({ name: "", phone: "", email: "", service: "", message: "" });
-        } catch (error) {
-            setFeedback({ success: false, message: error.message || "Unable to send your message. Please try again." });
-        } finally { setSending(false); }
-    };
     return (<>
       <main className="relative" style={{ backgroundColor: "#f6f9fb" }}>
 
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
-        <section className="site-page-hero relative text-center overflow-hidden grid-bg-light" style={{
+        <section className="site-page-hero relative text-center overflow-hidden grid-bg-light" data-hero-reveal style={{
             paddingTop: 160,
             paddingBottom: 80,
             background: "linear-gradient(180deg, #edf4f7 0%, #f6f9fb 60%, #ffffff 100%)",
         }}>
+          <HeroBackground />
           <div className="beam" style={{ left: "20%", top: 0 }} aria-hidden="true"/>
           <div className="beam beam-delay-1" style={{ left: "50%", top: 0 }} aria-hidden="true"/>
           <div className="beam beam-delay-2" style={{ left: "80%", top: 0 }} aria-hidden="true"/>
@@ -111,42 +54,7 @@ export default function Contact() {
               {/* Form — 60% */}
               <div className="lg:col-span-3">
                 <div className="service-card-light contact-form-card" style={{ padding: 32 }}>
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-5" aria-busy={sending}>
-                      <div hidden aria-hidden="true"><label htmlFor="website">Leave this empty</label><input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
-                      <div>
-                        <label htmlFor="name" style={LABEL_STYLE}>Full Name *</label>
-                        <input id="name" name="name" type="text" required placeholder="Jane Smith" value={form.name} onChange={handleChange} style={FIELD_STYLE} onFocus={focusField} onBlur={blurField}/>
-                      </div>
-
-                      <div>
-                        <label htmlFor="phone" style={LABEL_STYLE}>Contact Number *</label>
-                        <input id="phone" name="phone" type="tel" required placeholder="+91 8500631655" value={form.phone} onChange={handleChange} style={FIELD_STYLE} onFocus={focusField} onBlur={blurField}/>
-                      </div>
-
-                      <div>
-                        <label htmlFor="email" style={LABEL_STYLE}>Email Address *</label>
-                        <input id="email" name="email" type="email" required placeholder="jane@company.com" value={form.email} onChange={handleChange} style={FIELD_STYLE} onFocus={focusField} onBlur={blurField}/>
-                      </div>
-
-                      <div>
-                        <label htmlFor="service" style={LABEL_STYLE}>Service Interest *</label>
-                        <select id="service" name="service" required value={form.service} onChange={handleChange} style={{ ...FIELD_STYLE, appearance: "auto" }} onFocus={focusField} onBlur={blurField}>
-                          <option value="" disabled>Select a service</option>
-                          {SERVICE_OPTIONS.map((opt) => (<option key={opt} value={opt}>{opt}</option>))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label htmlFor="message" style={LABEL_STYLE}>Message *</label>
-                        <textarea id="message" name="message" required rows={5} placeholder="Tell us about your project or challenge…" value={form.message} onChange={handleChange} style={{ ...FIELD_STYLE, resize: "vertical" }} onFocus={focusField} onBlur={blurField}/>
-                      </div>
-
-                      <button type="submit" disabled={sending} className="btn-primary-light flex items-center justify-center gap-2 w-full" style={{ padding: "14px 0", fontSize: 14, opacity: sending ? 0.65 : 1 }}>
-                        {sending ? "Sending…" : "Send Message"}
-                        <ArrowRight size={15} strokeWidth={2.5}/>
-                      </button>
-                      {feedback && <p className="text-sm" role={feedback.success ? "status" : "alert"} style={{ color: feedback.success ? "#245b47" : "#9b2828", lineHeight: 1.7 }}>{feedback.message}</p>}
-                    </form>
+                  <ContactForm />
                 </div>
               </div>
 

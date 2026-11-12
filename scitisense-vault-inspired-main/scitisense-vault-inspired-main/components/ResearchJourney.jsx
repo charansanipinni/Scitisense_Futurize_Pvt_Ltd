@@ -36,6 +36,21 @@ export function WhyScitisense() {
 const faqs = [{ q: "What can we build together?", a: "We work across computer vision, IoT and wearable sensors, machine learning, NLP and LLMs, generative AI, agentic AI, and Medical IT. We also offer training, consultancy, and enterprise technology services." }, { q: "Do you collaborate with universities and research labs?", a: "Yes. We partner with universities, research labs, and enterprises on joint R&D projects and technology transfer. Use our contact page to share a research proposal." }, { q: "Can you take an idea from research to deployment?", a: "Our services span research, prototype and model development, deployment, performance benchmarking, documentation, and knowledge transfer. The scope is tailored to your project." }, { q: "How do we get started?", a: "Tell us about your challenge through our contact page, by email, or by phone. We'll discuss your goals and help define the right next step." }];
 export function ResearchFAQ() {
     const [open, setOpen] = useState(0);
-    return <section className="faq-section section-shell"><div><span className="eyebrow">A LITTLE MORE CLARITY</span><h2>Good questions.<br /><span className="muted-blue">Clear answers.</span></h2><p>Have something else in mind?</p><Link className="text-link" href="/contact">Let&apos;s talk <ArrowUpRight size={17}/></Link></div><div className="faq-list">{faqs.map((f, i) => <div className={`faq-item ${open === i ? "is-open" : ""}`} key={f.q}><h3><button onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i} aria-controls={`faq-answer-${i}`}>{f.q}{open === i ? <Minus size={18}/> : <Plus size={18}/>}</button></h3><div id={`faq-answer-${i}`} className="faq-answer" hidden={open !== i}><p>{f.a}</p></div></div>)}</div></section>;
+    return <section id="faq" className="faq-section section-shell" aria-label="Frequently asked questions"><div><span className="eyebrow">A LITTLE MORE CLARITY</span><h2>Good questions.<br /><span className="muted-blue">Clear answers.</span></h2><p>Have something else in mind?</p><Link className="text-link" href="/contact">Let&apos;s talk <ArrowUpRight size={17}/></Link></div><div className="faq-list">{faqs.map((f, i) => <div className={`faq-item ${open === i ? "is-open" : ""}`} key={f.q}><h3><button onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i} aria-controls={`faq-answer-${i}`}>{f.q}{open === i ? <Minus size={18}/> : <Plus size={18}/>}</button></h3><div id={`faq-answer-${i}`} className="faq-answer" hidden={open !== i}><p>{f.a}</p></div></div>)}</div></section>;
 }
-export function ResearchCTA() { return <section className="research-cta section-shell"><div className="cta-art"><HalftoneHands /></div><div className="cta-copy"><span className="eyebrow">LET&apos;S MAKE SOMETHING MATTER</span><h2>Your next idea.<br />Our shared <span className="muted-blue">possibility.</span></h2><p>Bring us the challenge. Let&apos;s build what comes next.</p><GlassButton href="/contact" label="Start a conversation" variant="primary"/></div><ParticleText /></section>; }
+export function ResearchCTA() {
+    return (
+        <section className="research-cta">
+            <div className="cta-copy">
+                <span className="eyebrow">LET&apos;S MAKE SOMETHING MATTER</span>
+                <h2>Your next idea.<br />Our shared <span className="muted-blue">possibility.</span></h2>
+                <p>Bring us the challenge. Let&apos;s build what comes next.</p>
+                <div className="cta-conversation">
+                    <div className="cta-art"><HalftoneHands /></div>
+                    <GlassButton href="/contact" label="Start a conversation" variant="primary" />
+                </div>
+            </div>
+            <ParticleText />
+        </section>
+    );
+}

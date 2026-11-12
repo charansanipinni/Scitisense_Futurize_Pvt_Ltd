@@ -71,7 +71,7 @@
   .hero-composition .hero-introduction { background: linear-gradient(90deg, #08121ef2 0%, #08121eb3 30%, #08121e00 66%); }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1023px) {
   :root { --header-clearance: 154px; }
   .site-page-hero { padding-top: var(--header-clearance) !important; }
   .simple-site-header { flex-direction: row; gap: 10px; padding: 12px 14px; }
@@ -95,7 +95,7 @@
   .section-shell { width: calc(100% - 40px); }
   .hero-composition .hero-introduction { padding-inline: 20px; }
   .hero-composition .hero-copy { max-width: 520px; }
-  .hero-composition .hero-copy > p { font-size: clamp(14px, 3.8vw, 16px); max-width: 420px; margin-inline: auto; }
+  .hero-composition .hero-copy > p { font-size: 1rem; max-width: 420px; margin-inline: auto; }
   .hero-composition .hero-actions { justify-content: center; }
   .hallway-static { padding-block: 48px 64px; }
   .hallway-static-cards { gap: 16px; }
@@ -152,4 +152,83 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-headline .rotator { overflow: visible; }
+}
+
+/* Shared device sizing follows all section styles. */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+main img, main video {
+  max-width: 100%;
+  height: auto;
+}
+
+main, main section, main .grid > * { min-width: 0; }
+main :where(p, h1, h2, h3, h4, a) { overflow-wrap: break-word; }
+#faq { scroll-margin-top: 8rem; }
+.counter-static {
+  display: inline-block;
+  font-size: 3.25rem;
+  font-weight: 500;
+  letter-spacing: -.05em;
+  line-height: 1.2;
+}
+.simple-site-header {
+  top: max(1rem, env(safe-area-inset-top));
+  max-width: calc(100% - 2rem - env(safe-area-inset-left) - env(safe-area-inset-right));
+}
+.company-brand-header { flex-shrink: 1; }
+.company-brand-header .company-brand-name { white-space: normal; }
+.site-nav > a, .site-nav-services > button, .site-services-dropdown a {
+  min-width: 44px;
+  min-height: 44px;
+}
+.site-nav { min-width: 0; }
+.site-nav:focus-within { overflow: visible; }
+.site-menu-toggle:focus-visible, .site-nav > a:focus-visible, .site-nav-services > button:focus-visible {
+  outline-color: #b9dcff;
+}
+
+@media (max-width: 767px) {
+  main p { font-size: 1rem !important; }
+  main :where(button, .button, .text-link, .program-text-link) {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  main :where(.intro-section, .expertise-grid, .process-panel, .faq-section,
+    .collaborators-section, .founder-message, .leadership-grid,
+    .services-overview, .service-program-grid, .program-intro,
+    .program-example, .program-offerings-grid, .program-journey) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .site-nav[data-open="true"] {
+    max-height: calc(100dvh - 7rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .site-nav > a, .site-nav-services > button, .site-services-dropdown a { font-size: 1rem; }
+  .process-tabs { flex-wrap: wrap; }
+  .process-tabs > button { flex: 1 1 6rem; }
+}
+
+@media (max-width: 479px) {
+  .simple-site-header { gap: .5rem; padding-inline: .75rem; }
+  .company-brand-header { gap: .5rem; }
+  .company-brand-header .company-brand-name { font-size: clamp(.9rem, 4vw, 1rem); }
+  .research-cta .cta-copy h2 { font-size: clamp(1.75rem, 8vw, 2.25rem); }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .simple-site-header { top: max(.5rem, env(safe-area-inset-top)); }
+  .site-nav[data-open="true"] {
+    max-height: calc(100dvh - 6rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow-y: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  .reference-footer a { transition: none; }
 }

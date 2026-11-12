@@ -1,0 +1,181 @@
+/* Shared floating navigation sits directly over each page hero. */
+.corporate-site-header {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 70;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem 2rem;
+  width: min(
+    80rem,
+    calc(100% - 2rem - env(safe-area-inset-left) - env(safe-area-inset-right))
+  );
+  max-width: none;
+  margin-inline: auto;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  color: var(--brand-on-navy);
+}
+
+.corporate-site-header .company-brand-name {
+  color: var(--brand-on-navy);
+}
+.corporate-site-header .company-brand-legal {
+  color: #bcd5e8;
+}
+.corporate-site-header .company-brand > img {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.corporate-site-header .site-nav {
+  position: static;
+  display: none;
+  width: 100%;
+  padding: 0;
+  gap: 1rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.corporate-site-header .site-nav > a,
+.corporate-site-header .site-nav-services > button {
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 0.625rem 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: #dbe9f0;
+  font-size: 1rem;
+  font-weight: 500;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.corporate-site-header .site-nav > a:hover,
+.corporate-site-header .site-nav-services > button:hover,
+.corporate-site-header .site-nav > a[aria-current="page"],
+.corporate-site-header .site-nav-services > button[aria-current="page"],
+.corporate-site-header .site-nav-services > button[aria-expanded="true"] {
+  border-bottom-color: #bcd5e8;
+  background: transparent;
+  color: #fff;
+}
+
+.corporate-site-header .site-menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+}
+
+.corporate-site-header :where(a, button):focus-visible {
+  outline-color: #b9dcff;
+}
+
+.corporate-site-header .site-nav[data-open="true"] {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: stretch;
+  gap: 0.25rem;
+  max-height: calc(
+    100dvh - 7rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+  );
+  overflow-y: auto;
+  padding-top: 0.5rem;
+}
+
+.corporate-site-header .site-services-dropdown {
+  position: static;
+  width: 100%;
+  margin-block: 0.25rem 0.75rem;
+  padding: 0.25rem 0 0.25rem 1rem;
+  transform: none;
+  border: 0;
+  border-left: 1px solid #bcd5e840;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.corporate-site-header .site-services-dropdown a {
+  min-height: 44px;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  color: #dbe9f0;
+}
+
+.corporate-site-header .site-services-dropdown a:hover,
+.corporate-site-header .site-services-dropdown a:focus-visible {
+  background: #bcd5e814;
+  color: #fff;
+}
+
+@media (max-width: 1023px) {
+  .corporate-site-header .site-nav[data-open="true"] {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background: #08121ef5;
+  }
+}
+
+@media (min-width: 1024px) {
+  .corporate-site-header {
+    width: min(
+      80rem,
+      calc(100% - 4rem - env(safe-area-inset-left) - env(safe-area-inset-right))
+    );
+    padding: 0.875rem 1.5rem;
+  }
+  .corporate-site-header .site-menu-toggle {
+    display: none;
+  }
+  .corporate-site-header .site-nav,
+  .corporate-site-header .site-nav[data-open="true"] {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: clamp(1rem, 2.5vw, 2.25rem);
+    width: auto;
+    grid-column: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+  }
+  .corporate-site-header .site-services-dropdown {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 0;
+    width: 17rem;
+    margin: 0;
+    padding: 0.5rem;
+    border: 1px solid #bcd5e840;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 24px -16px #172b3a66;
+    background: #0c1a2a;
+  }
+}

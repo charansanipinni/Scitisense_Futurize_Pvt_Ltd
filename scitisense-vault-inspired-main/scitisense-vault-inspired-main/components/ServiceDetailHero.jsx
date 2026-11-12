@@ -1,9 +1,10 @@
 "use client";
 import { motion, useReducedMotion } from "motion/react";
+import HeroBackground from "./HeroBackground";
 const ease = [0.22, 1, 0.36, 1];
 export default function ServiceDetailHero({ title, tagline }) {
     const noMotion = useReducedMotion() === true;
-    return (<section className="site-page-hero" style={{
+    return (<section className="site-page-hero" data-hero-reveal style={{
             background: "linear-gradient(180deg, #edf4f7 0%, #f6f9fb 60%, #ffffff 100%)",
             paddingTop: "160px",
             paddingBottom: "80px",
@@ -11,6 +12,7 @@ export default function ServiceDetailHero({ title, tagline }) {
             position: "relative",
             overflow: "hidden",
         }}>
+      <HeroBackground />
       <div className="relative container px-5 md:px-8">
 
         {/* Breadcrumb */}

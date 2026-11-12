@@ -1,34 +1,381 @@
 "use client";
 // Adapted from the Framer component supplied by the site owner.
-// Animated particles text component where particles are pushed around by the mouse pointer
-import{jsx as _jsx}from"react/jsx-runtime";import{useEffect,useRef,useState,startTransition}from"react";import{addPropertyControls,ControlType,useIsStaticRenderer}from"./runtime";/**
- * @framerIntrinsicWidth 500
- * @framerIntrinsicHeight 500
- * @framerSupportedLayoutWidth fixed
- * @framerSupportedLayoutHeight fixed
- */export default function TextFlow(props){const{text="Pola",particleColor="#FFFFFF",backgroundColor="#000000",particleSize=2,particleDensity=3,mouseRadius=100,returnSpeed=.05,font,verticalAlign="center",horizontalAlign="center",style}=props;const canvasRef=useRef(null);const particlesRef=useRef([]);const mouseRef=useRef({x:-1e3,y:-1e3});const animationFrameRef=useRef();const isStatic=useIsStaticRenderer();const[isInitialized,setIsInitialized]=useState(false);// Initialize particles
-useEffect(()=>{if(isStatic)return;const canvas=canvasRef.current;if(!canvas)return;const ctx=canvas.getContext("2d",{willReadFrequently:true});if(!ctx)return;// Use a timeout to prevent blocking
-const timeoutId=setTimeout(()=>{const dpr=typeof window!=="undefined"?window.devicePixelRatio||1:1;const rect=canvas.getBoundingClientRect();canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;ctx.scale(dpr,dpr);const width=rect.width;const height=rect.height;// Draw text to get particle positions
-ctx.fillStyle=particleColor;// Set horizontal alignment
-if(horizontalAlign==="left"){ctx.textAlign="left";}else if(horizontalAlign==="right"){ctx.textAlign="right";}else{ctx.textAlign="center";}// Set vertical baseline
-ctx.textBaseline="middle";const fontSize=parseInt(font.fontSize)||80;const fontWeight=font.fontWeight||"400";const fontStyle=font.fontStyle||"normal";const fontFamily=font.fontFamily||"Inter, sans-serif";ctx.font=`${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;// Add padding to prevent text cutoff
-const padding=fontSize*.3;// Calculate maximum text width based on container size
-const maxTextWidth=width-padding*2;// Function to wrap text to fit within container width
-const wrapText=inputText=>{const inputLines=inputText.split("\n");const wrappedLines=[];for(const line of inputLines){// If line is empty or fits, keep it as is
-if(!line.trim()){wrappedLines.push("");continue;}// Check if line fits in container
-const metrics=ctx.measureText(line);if(metrics.width<=maxTextWidth){wrappedLines.push(line);continue;}// Split line into words
-const words=line.split(" ");let currentLine="";for(const word of words){const testLine=currentLine?`${currentLine} ${word}`:word;const testMetrics=ctx.measureText(testLine);if(testMetrics.width<=maxTextWidth){currentLine=testLine;}else{if(currentLine){wrappedLines.push(currentLine);currentLine=word;}else{// Single word too long, add it anyway
-wrappedLines.push(word);}}}if(currentLine){wrappedLines.push(currentLine);}}return wrappedLines;};const lines=wrapText(text);const lineHeight=fontSize*1.2;const totalHeight=lines.length*lineHeight;// Calculate vertical position
-let startY;if(verticalAlign==="top"){startY=lineHeight/2+padding;}else if(verticalAlign==="bottom"){startY=height-totalHeight+lineHeight/2-padding;}else{startY=(height-totalHeight)/2+lineHeight/2;}// Calculate horizontal position
-let textX;if(horizontalAlign==="left"){textX=padding;}else if(horizontalAlign==="right"){textX=width-padding;}else{textX=width/2;}lines.forEach((line,index)=>{ctx.fillText(line,textX,startY+index*lineHeight);});// Get pixel data
-const imageData=ctx.getImageData(0,0,canvas.width,canvas.height);const pixels=imageData.data;// Create particles from text pixels
-const particles=[];const gap=Math.max(2,particleDensity);for(let y=0;y<canvas.height;y+=gap){for(let x=0;x<canvas.width;x+=gap){const index=(y*canvas.width+x)*4;const alpha=pixels[index+3];if(alpha>128){const px=x/dpr;const py=y/dpr;particles.push({x:px,y:py,baseX:px,baseY:py,vx:0,vy:0});}}}particlesRef.current=particles;startTransition(()=>setIsInitialized(true));},0);return()=>{clearTimeout(timeoutId);};},[text,particleColor,particleDensity,font,isStatic,horizontalAlign,verticalAlign]);// Animation loop
-useEffect(()=>{if(isStatic||!isInitialized)return;const canvas=canvasRef.current;if(!canvas)return;const ctx=canvas.getContext("2d");if(!ctx)return;const rect=canvas.getBoundingClientRect();const width=rect.width;const height=rect.height;const animate=()=>{ctx.clearRect(0,0,width,height);const mouse=mouseRef.current;const particles=particlesRef.current;for(let i=0;i<particles.length;i++){const particle=particles[i];const dx=mouse.x-particle.x;const dy=mouse.y-particle.y;const distance=Math.sqrt(dx*dx+dy*dy);// Push particles away from mouse
-if(distance<mouseRadius){const force=(mouseRadius-distance)/mouseRadius;const angle=Math.atan2(dy,dx);particle.vx-=Math.cos(angle)*force*2;particle.vy-=Math.sin(angle)*force*2;}// Return to base position
-particle.vx+=(particle.baseX-particle.x)*returnSpeed;particle.vy+=(particle.baseY-particle.y)*returnSpeed;// Apply velocity with damping
-particle.vx*=.95;particle.vy*=.95;particle.x+=particle.vx;particle.y+=particle.vy;// Draw particle
-ctx.fillStyle=particleColor;ctx.beginPath();ctx.arc(particle.x,particle.y,particleSize,0,Math.PI*2);ctx.fill();}animationFrameRef.current=requestAnimationFrame(animate);};animate();return()=>{if(animationFrameRef.current){cancelAnimationFrame(animationFrameRef.current);}};},[isInitialized,particleColor,particleSize,mouseRadius,returnSpeed,isStatic]);const handleMouseMove=e=>{if(isStatic)return;const canvas=canvasRef.current;if(!canvas)return;const rect=canvas.getBoundingClientRect();mouseRef.current={x:e.clientX-rect.left,y:e.clientY-rect.top};};const handleMouseLeave=()=>{mouseRef.current={x:-1e3,y:-1e3};};// Static preview
-if(isStatic){// Map alignment values to CSS
-const alignItems=verticalAlign==="top"?"flex-start":verticalAlign==="bottom"?"flex-end":"center";const justifyContent=horizontalAlign==="left"?"flex-start":horizontalAlign==="right"?"flex-end":"center";const textAlign=horizontalAlign;return /*#__PURE__*/_jsx("div",{style:{...style,width:"100%",height:"100%",backgroundColor,display:"flex",alignItems,justifyContent,color:particleColor,textAlign,whiteSpace:"pre-wrap",wordBreak:"break-word",overflowWrap:"break-word",hyphens:"auto",padding:"16px",boxSizing:"border-box",...font},children:text});}return /*#__PURE__*/_jsx("canvas",{ref:canvasRef,onMouseMove:handleMouseMove,onMouseLeave:handleMouseLeave,style:{...style,width:"100%",height:"100%",backgroundColor,cursor:"default"}});}addPropertyControls(TextFlow,{text:{type:ControlType.String,title:"Text",defaultValue:"Pola",displayTextArea:true},font:{type:ControlType.Font,title:"Font",controls:"extended",defaultFontType:"sans-serif",defaultValue:{fontSize:"80px",variant:"Regular",letterSpacing:"-0.02em",lineHeight:"1.2em"}},horizontalAlign:{type:ControlType.Enum,title:"Horizontal",options:["left","center","right"],optionTitles:["Left","Center","Right"],defaultValue:"center",displaySegmentedControl:true},verticalAlign:{type:ControlType.Enum,title:"Vertical",options:["top","center","bottom"],optionTitles:["Top","Center","Bottom"],defaultValue:"center",displaySegmentedControl:true},particleColor:{type:ControlType.Color,title:"Particle Color",defaultValue:"#FFFFFF"},backgroundColor:{type:ControlType.Color,title:"Background",defaultValue:"#000000"},particleSize:{type:ControlType.Number,title:"Particle Size",defaultValue:2,min:1,max:10,step:.5,unit:"px"},particleDensity:{type:ControlType.Number,title:"Density",description:"Lower values create more particles (denser text)",defaultValue:3,min:1,max:10,step:1,unit:"px"},mouseRadius:{type:ControlType.Number,title:"Mouse Radius",defaultValue:100,min:50,max:300,step:10,unit:"px"},returnSpeed:{type:ControlType.Number,title:"Return Speed",defaultValue:.05,min:.01,max:.2,step:.01}});
-export const __FramerMetadata__ = {"exports":{"default":{"type":"reactComponent","name":"TextFlow","slots":[],"annotations":{"framerContractVersion":"1","framerIntrinsicHeight":"500","framerIntrinsicWidth":"500","framerSupportedLayoutHeight":"fixed","framerSupportedLayoutWidth":"fixed"}},"__FramerMetadata__":{"type":"variable"}}}
+import { useEffect, useRef } from "react";
+import {
+  addPropertyControls,
+  ControlType,
+  useIsStaticRenderer,
+} from "./runtime";
+
+export default function TextFlow({
+  text = "Pola",
+  particleColor = "#FFFFFF",
+  backgroundColor = "#000000",
+  particleSize = 2,
+  particleDensity = 3,
+  mouseRadius = 100,
+  returnSpeed = 0.05,
+  font,
+  verticalAlign = "center",
+  horizontalAlign = "center",
+  style,
+}) {
+  const canvasRef = useRef(null);
+  const isStatic = useIsStaticRenderer();
+  const fontSize = parseFloat(font?.fontSize) || 80;
+  const fontWeight = font?.fontWeight || "400";
+  const fontStyle = font?.fontStyle || "normal";
+  const fontFamily = font?.fontFamily || "Inter, sans-serif";
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (isStatic || !canvas) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+    const sample = document.createElement("canvas");
+    const sampleContext = sample.getContext("2d", { willReadFrequently: true });
+    if (!sampleContext) return;
+
+    let particles = [];
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let lastTime = 0;
+    let inView = false;
+    const mouse = { x: -1000, y: -1000 };
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const pointerQuery = window.matchMedia("(pointer: fine)");
+    const radiusSquared = mouseRadius * mouseRadius;
+
+    function pause() {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      lastTime = 0;
+    }
+
+    function draw(now) {
+      frame = 0;
+      const step = lastTime ? Math.min(2, (now - lastTime) / (1000 / 60)) : 1;
+      lastTime = now;
+      let moving = false;
+      context.clearRect(0, 0, width, height);
+      context.fillStyle = particleColor;
+      context.beginPath();
+
+      for (const particle of particles) {
+        const dx = particle.x - mouse.x;
+        const dy = particle.y - mouse.y;
+        const distanceSquared = dx * dx + dy * dy;
+        if (!motionQuery.matches && distanceSquared < radiusSquared) {
+          const distance = Math.sqrt(distanceSquared);
+          const force = (1 - distance / mouseRadius) * 2 * step;
+          const divisor = distance || 1;
+          particle.vx += (dx / divisor) * force;
+          particle.vy += (dy / divisor) * force;
+        }
+        particle.vx += (particle.baseX - particle.x) * returnSpeed * step;
+        particle.vy += (particle.baseY - particle.y) * returnSpeed * step;
+        const damping = Math.pow(0.86, step);
+        particle.vx *= damping;
+        particle.vy *= damping;
+        particle.x += particle.vx * step;
+        particle.y += particle.vy * step;
+
+        const displacement =
+          Math.abs(particle.baseX - particle.x) +
+          Math.abs(particle.baseY - particle.y);
+        if (
+          displacement + Math.abs(particle.vx) + Math.abs(particle.vy) >
+          0.05
+        ) {
+          moving = true;
+        } else {
+          particle.x = particle.baseX;
+          particle.y = particle.baseY;
+          particle.vx = 0;
+          particle.vy = 0;
+        }
+        context.moveTo(particle.x + particleSize, particle.y);
+        context.arc(particle.x, particle.y, particleSize, 0, Math.PI * 2);
+      }
+      // One canvas fill for the entire word avoids a draw call per particle.
+      context.fill();
+      if (moving) wake();
+    }
+
+    function wake() {
+      if (frame || !inView || document.hidden || motionQuery.matches) return;
+      frame = requestAnimationFrame(draw);
+    }
+
+    function rebuild() {
+      const rect = canvas.getBoundingClientRect();
+      const nextWidth = Math.round(rect.width);
+      const nextHeight = Math.round(rect.height);
+      if (
+        !nextWidth ||
+        !nextHeight ||
+        (width === nextWidth && height === nextHeight)
+      )
+        return;
+      pause();
+      width = nextWidth;
+      height = nextHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      sample.width = width;
+      sample.height = height;
+      sampleContext.fillStyle = particleColor;
+      sampleContext.font = `${fontStyle} ${fontWeight} ${fontSize}px ${fontFamily}`;
+      sampleContext.textAlign = horizontalAlign;
+      sampleContext.textBaseline = "middle";
+
+      const padding = fontSize * 0.3;
+      const maxWidth = Math.max(1, width - padding * 2);
+      const lines = [];
+      for (const line of text.split("\n")) {
+        let current = "";
+        for (const word of line.split(" ")) {
+          const candidate = current ? `${current} ${word}` : word;
+          if (
+            current &&
+            sampleContext.measureText(candidate).width > maxWidth
+          ) {
+            lines.push(current);
+            current = word;
+          } else {
+            current = candidate;
+          }
+        }
+        lines.push(current);
+      }
+      const lineHeight = fontSize * 1.2;
+      const totalHeight = lines.length * lineHeight;
+      const startY =
+        verticalAlign === "top"
+          ? padding + lineHeight / 2
+          : verticalAlign === "bottom"
+            ? height - totalHeight - padding + lineHeight / 2
+            : (height - totalHeight) / 2 + lineHeight / 2;
+      const textX =
+        horizontalAlign === "left"
+          ? padding
+          : horizontalAlign === "right"
+            ? width - padding
+            : width / 2;
+      lines.forEach((line, index) =>
+        sampleContext.fillText(line, textX, startY + index * lineHeight),
+      );
+
+      const pixels = sampleContext.getImageData(0, 0, width, height).data;
+      const gap = Math.max(2, particleDensity);
+      particles = [];
+      for (let y = 0; y < height; y += gap) {
+        for (let x = 0; x < width; x += gap) {
+          if (pixels[(y * width + x) * 4 + 3] > 128) {
+            particles.push({ x, y, baseX: x, baseY: y, vx: 0, vy: 0 });
+          }
+        }
+      }
+      draw(performance.now());
+    }
+
+    function onPointerMove(event) {
+      if (event.pointerType !== "mouse" || !pointerQuery.matches) return;
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = event.clientX - rect.left;
+      mouse.y = event.clientY - rect.top;
+      if (!frame) lastTime = 0;
+      wake();
+    }
+
+    function onPointerLeave() {
+      mouse.x = -1000;
+      mouse.y = -1000;
+      wake();
+    }
+
+    function updateVisibility() {
+      if (document.hidden || !inView || motionQuery.matches) pause();
+      else wake();
+    }
+
+    rebuild();
+    const resizeObserver = new ResizeObserver(rebuild);
+    resizeObserver.observe(canvas);
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      updateVisibility();
+    });
+    visibilityObserver.observe(canvas);
+    document.addEventListener("visibilitychange", updateVisibility);
+    motionQuery.addEventListener("change", updateVisibility);
+    canvas.addEventListener("pointermove", onPointerMove, { passive: true });
+    canvas.addEventListener("pointerleave", onPointerLeave);
+    return () => {
+      pause();
+      resizeObserver.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener("visibilitychange", updateVisibility);
+      motionQuery.removeEventListener("change", updateVisibility);
+      canvas.removeEventListener("pointermove", onPointerMove);
+      canvas.removeEventListener("pointerleave", onPointerLeave);
+    };
+  }, [
+    text,
+    particleColor,
+    particleSize,
+    particleDensity,
+    mouseRadius,
+    returnSpeed,
+    fontSize,
+    fontWeight,
+    fontStyle,
+    fontFamily,
+    verticalAlign,
+    horizontalAlign,
+    isStatic,
+  ]);
+
+  if (isStatic) {
+    return (
+      <div
+        style={{
+          ...style,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems:
+            verticalAlign === "top"
+              ? "flex-start"
+              : verticalAlign === "bottom"
+                ? "flex-end"
+                : "center",
+          justifyContent:
+            horizontalAlign === "left"
+              ? "flex-start"
+              : horizontalAlign === "right"
+                ? "flex-end"
+                : "center",
+          backgroundColor,
+          color: particleColor,
+          textAlign: horizontalAlign,
+          whiteSpace: "pre-wrap",
+          overflowWrap: "break-word",
+          padding: "16px",
+          ...font,
+        }}
+      >
+        {text}
+      </div>
+    );
+  }
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ ...style, width: "100%", height: "100%", backgroundColor }}
+    />
+  );
+}
+addPropertyControls(TextFlow, {
+  text: {
+    type: ControlType.String,
+    title: "Text",
+    defaultValue: "Pola",
+    displayTextArea: true,
+  },
+  font: {
+    type: ControlType.Font,
+    title: "Font",
+    controls: "extended",
+    defaultFontType: "sans-serif",
+    defaultValue: {
+      fontSize: "80px",
+      variant: "Regular",
+      letterSpacing: "-0.02em",
+      lineHeight: "1.2em",
+    },
+  },
+  horizontalAlign: {
+    type: ControlType.Enum,
+    title: "Horizontal",
+    options: ["left", "center", "right"],
+    optionTitles: ["Left", "Center", "Right"],
+    defaultValue: "center",
+    displaySegmentedControl: true,
+  },
+  verticalAlign: {
+    type: ControlType.Enum,
+    title: "Vertical",
+    options: ["top", "center", "bottom"],
+    optionTitles: ["Top", "Center", "Bottom"],
+    defaultValue: "center",
+    displaySegmentedControl: true,
+  },
+  particleColor: {
+    type: ControlType.Color,
+    title: "Particle Color",
+    defaultValue: "#FFFFFF",
+  },
+  backgroundColor: {
+    type: ControlType.Color,
+    title: "Background",
+    defaultValue: "#000000",
+  },
+  particleSize: {
+    type: ControlType.Number,
+    title: "Particle Size",
+    defaultValue: 2,
+    min: 1,
+    max: 10,
+    step: 0.5,
+    unit: "px",
+  },
+  particleDensity: {
+    type: ControlType.Number,
+    title: "Density",
+    description: "Lower values create more particles (denser text)",
+    defaultValue: 3,
+    min: 1,
+    max: 10,
+    step: 1,
+    unit: "px",
+  },
+  mouseRadius: {
+    type: ControlType.Number,
+    title: "Mouse Radius",
+    defaultValue: 100,
+    min: 50,
+    max: 300,
+    step: 10,
+    unit: "px",
+  },
+  returnSpeed: {
+    type: ControlType.Number,
+    title: "Return Speed",
+    defaultValue: 0.05,
+    min: 0.01,
+    max: 0.2,
+    step: 0.01,
+  },
+});
+export const __FramerMetadata__ = {
+  exports: {
+    default: {
+      type: "reactComponent",
+      name: "TextFlow",
+      slots: [],
+      annotations: {
+        framerContractVersion: "1",
+        framerIntrinsicHeight: "500",
+        framerIntrinsicWidth: "500",
+        framerSupportedLayoutHeight: "fixed",
+        framerSupportedLayoutWidth: "fixed",
+      },
+    },
+    __FramerMetadata__: { type: "variable" },
+  },
+};
 // Original source map: ./ParticleText.map

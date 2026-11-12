@@ -4,10 +4,12 @@ import "./template.css";
 import "./refinements.css";
 import "./theme.css";
 import "./interactions.css";
-import "./responsive.css";
 import "./new-sections.css";
 import "./service-program.css";
 import "./footer.css";
+import "./responsive.css";
+import "./navigation.css";
+import "./hero-reveal.css";
 import NavbarLight from "@/components/NavbarLight";
 import Footer from "@/components/Footer";
 import SmoothScrollProvider from "@/lib/lenis";
@@ -71,6 +73,7 @@ export const viewport = {
     colorScheme: "light",
     width: "device-width",
     initialScale: 1,
+    viewportFit: "cover",
 };
 export default function RootLayout({ children, }) {
     return (<html lang="en" data-scroll-behavior="smooth" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
