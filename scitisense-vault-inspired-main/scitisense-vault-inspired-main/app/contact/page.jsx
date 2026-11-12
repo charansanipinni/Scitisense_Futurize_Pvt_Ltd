@@ -104,13 +104,13 @@ export default function Contact() {
         </section>
 
         {/* ── Form + Info ───────────────────────────────────────────────────── */}
-        <section style={{ paddingTop: 80, paddingBottom: 120 }}>
+        <section className="contact-content" style={{ paddingTop: 80, paddingBottom: 120 }}>
           <div className="container px-5 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
 
               {/* Form — 60% */}
               <div className="lg:col-span-3">
-                <div className="service-card-light" style={{ padding: 32 }}>
+                <div className="service-card-light contact-form-card" style={{ padding: 32 }}>
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5" aria-busy={sending}>
                       <div hidden aria-hidden="true"><label htmlFor="website">Leave this empty</label><input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
                       <div>

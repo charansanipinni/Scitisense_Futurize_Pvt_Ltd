@@ -509,7 +509,7 @@ export default function ServicesPage() {
 
                 {/* Collapsed footer */}
                 {!isOpen && (<div style={{ padding: '0 28px 24px', marginTop: 'auto' }}>
-                    <button onClick={() => setExpanded(svc.id)} style={{
+                    <button className="service-details-button" onClick={() => setExpanded(svc.id)} style={{
                         fontSize: 13, fontWeight: 600,
                         color: svc.color, background: 'none',
                         border: 'none', cursor: 'pointer',

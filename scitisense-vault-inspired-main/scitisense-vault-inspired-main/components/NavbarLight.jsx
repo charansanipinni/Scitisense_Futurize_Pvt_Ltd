@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import CompanyBrand from "./CompanyBrand";
 import { navigationLinks, serviceLinks } from "@/lib/site-links";
 
@@ -10,6 +10,7 @@ export default function NavbarLight() {
   const pathname = usePathname();
   const [servicesOpen, setServicesOpen] = useState(false);
   const [careersOpen, setCareersOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const triggerRef = useRef(null);
   const careersRef = useRef(null);
@@ -29,6 +30,7 @@ export default function NavbarLight() {
         setCareersOpen(false);
         careersTriggerRef.current?.focus();
       }
+      if (event.key === "Escape") setMenuOpen(false);
     };
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
@@ -38,17 +40,26 @@ export default function NavbarLight() {
     };
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+    setServicesOpen(false);
+    setCareersOpen(false);
+  }, [pathname]);
+
+  const closeMenus = () => { setMenuOpen(false); setServicesOpen(false); setCareersOpen(false); };
+
   return <header className="site-header simple-site-header">
     <a href="#main-content" className="skip-link">Skip to content</a>
     <CompanyBrand />
-    <nav className="site-nav" aria-label="Main navigation">
-      {navigationLinks.slice(0, 2).map(([label, href]) => <Link href={href} key={href} aria-current={pathname === href ? "page" : undefined} onClick={() => { setServicesOpen(false); setCareersOpen(false); }}>{label}</Link>)}
+    <button type="button" className="site-menu-toggle" aria-expanded={menuOpen} aria-controls="main-navigation" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={22} aria-hidden="true"/> : <Menu size={22} aria-hidden="true"/>}</button>
+    <nav id="main-navigation" className="site-nav" data-open={menuOpen} aria-label="Main navigation">
+      {navigationLinks.slice(0, 2).map(([label, href]) => <Link href={href} key={href} aria-current={pathname === href ? "page" : undefined} onClick={closeMenus}>{label}</Link>)}
       <div className="site-nav-services" ref={menuRef}>
         <button ref={triggerRef} type="button" aria-expanded={servicesOpen} aria-controls="services-dropdown" aria-current={pathname.startsWith("/services") ? "page" : undefined} onClick={() => { setServicesOpen(open => !open); setCareersOpen(false); }}>
           Services <ChevronDown size={15} aria-hidden="true" className={servicesOpen ? "is-open" : ""}/>
         </button>
         <div id="services-dropdown" className="site-services-dropdown" role="group" aria-label="Choose a service" hidden={!servicesOpen}>
-          {serviceLinks.map(([label, href]) => <Link href={href} key={href} onClick={() => setServicesOpen(false)}>{label}</Link>)}
+          {serviceLinks.map(([label, href]) => <Link href={href} key={href} onClick={closeMenus}>{label}</Link>)}
         </div>
       </div>
       <div className="site-nav-services" ref={careersRef}>
@@ -56,10 +67,10 @@ export default function NavbarLight() {
           Careers <ChevronDown size={15} aria-hidden="true" className={careersOpen ? "is-open" : ""}/>
         </button>
         <div id="careers-dropdown" className="site-services-dropdown" role="group" aria-label="Choose a career opportunity" hidden={!careersOpen}>
-          <Link href="/careers/internships" onClick={() => setCareersOpen(false)}>Internships</Link>
+          <Link href="/careers/internships" onClick={closeMenus}>Internships</Link>
         </div>
       </div>
-      <Link href="/contact" aria-current={pathname === "/contact" ? "page" : undefined} onClick={() => { setServicesOpen(false); setCareersOpen(false); }}>Contact</Link>
+      <Link href="/contact" aria-current={pathname === "/contact" ? "page" : undefined} onClick={closeMenus}>Contact</Link>
     </nav>
   </header>;
 }

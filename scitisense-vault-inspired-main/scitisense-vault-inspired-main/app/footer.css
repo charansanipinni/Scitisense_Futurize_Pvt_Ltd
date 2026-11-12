@@ -97,8 +97,13 @@
   .reference-footer-header { align-items: flex-start; flex-direction: column; }
   .reference-footer .company-brand-name { font-size: 19px; }
   .reference-footer-identity p { font-size: 12px; }
-  .reference-footer-cta { min-height: 48px; font-size: 14px; }
+  .reference-footer-cta { width: 100%; min-height: 48px; font-size: 14px; white-space: normal; text-align: center; }
   .reference-footer-columns { grid-template-columns: 1fr 1fr; gap: 34px 20px; }
+  .reference-footer-columns nav > a { min-height: 44px; align-items: center; margin-bottom: 0; }
   .reference-footer-columns > div:last-child { grid-column: 1 / -1; }
   .reference-footer-social { flex-direction: column; gap: 18px; padding: 30px 0; }
+}
+@media (max-width: 380px) {
+  .reference-footer-columns { grid-template-columns: 1fr; }
+  .reference-footer-columns > div:last-child { grid-column: auto; }
 }

@@ -45,11 +45,24 @@
 .service-card-identity { min-width: 0; flex: 1; }
 .service-card-identity > div:last-child { min-width: 0; }
 .service-card-title-row > button { min-width: 44px; min-height: 44px; }
+.service-details-button { min-height: 44px; }
 .algo-chip { max-width: 100%; white-space: normal; overflow-wrap: anywhere; line-height: 1.5; }
 .footer-contact a, .footer-contact p { overflow-wrap: anywhere; }
 .faq-item button { gap: 16px; line-height: 1.5; }
 .faq-item button > svg { flex-shrink: 0; }
 .process-tabs > button { min-height: 48px; }
+.site-menu-toggle { display: none; }
+
+/* The gallery keeps the desktop scroll scene and gives touch screens a light reveal. */
+@media (max-width: 1099px) and (prefers-reduced-motion: no-preference) {
+  .hallway-static.reveal-ready .hallway-static-card:not(.is-visible) {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  .hallway-static.reveal-ready .hallway-static-card {
+    transition: opacity .65s ease, transform .65s cubic-bezier(.22, 1, .36, 1), border-color .3s ease;
+  }
+}
 
 @media (min-width: 1100px) and (min-height: 700px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .hero-composition .hero-copy { width: 43%; max-width: 540px; }
@@ -59,8 +72,14 @@
 }
 
 @media (max-width: 1000px) {
-  :root { --header-clearance: 232px; }
-  .simple-site-header { gap: 10px; }
+  :root { --header-clearance: 154px; }
+  .site-page-hero { padding-top: var(--header-clearance) !important; }
+  .simple-site-header { flex-direction: row; gap: 10px; padding: 12px 14px; }
+  .site-menu-toggle { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid #bcd5e850; border-radius: 12px; background: #bcd5e814; color: #fff; }
+  .site-nav { display: none; position: absolute; top: calc(100% + 10px); left: 0; right: 0; width: 100%; max-height: calc(100dvh - 110px); overflow-y: auto; padding: 12px; flex-direction: column; align-items: stretch; border: 1px solid #bcd5e840; border-radius: 18px; background: #112335; box-shadow: 0 20px 45px #08121e66; }
+  .site-nav[data-open="true"] { display: flex; }
+  .site-nav > a, .site-nav-services > button { justify-content: space-between; width: 100%; min-height: 48px; padding-inline: 14px; font-size: 14px; }
+  .site-services-dropdown { position: static; width: 100%; transform: none; box-shadow: none; margin-block: 4px 8px; }
   .simple-mobile-navigation { gap: 4px; }
   .hero-composition section.hero-introduction { padding-top: var(--header-clearance); }
   .process-panel { min-height: 0; }
@@ -69,7 +88,22 @@
 
 @media (max-width: 767px) {
   .site-page { width: 100%; }
+  .site-page-hero { padding-inline: 20px !important; }
+  .site-page-hero h1 { line-height: 1.12 !important; overflow-wrap: break-word; }
+  .contact-content { padding-top: 48px !important; padding-bottom: 72px !important; }
+  .contact-form-card { padding: 24px !important; }
   .section-shell { width: calc(100% - 40px); }
+  .hero-composition .hero-introduction { padding-inline: 20px; }
+  .hero-composition .hero-copy { max-width: 520px; }
+  .hero-composition .hero-copy > p { font-size: clamp(14px, 3.8vw, 16px); max-width: 420px; margin-inline: auto; }
+  .hero-composition .hero-actions { justify-content: center; }
+  .hallway-static { padding-block: 48px 64px; }
+  .hallway-static-cards { gap: 16px; }
+  .hallway-static-card { display: block; border-radius: 18px; box-shadow: 0 16px 36px rgba(0, 8, 20, .16); }
+  .hallway-static-card > img { aspect-ratio: 16 / 10; object-fit: cover; }
+  .hallway-static-card > div { padding: 18px 20px; }
+  .hallway-static-card strong { font-size: 16px; line-height: 1.35; }
+  .hallway-static-card small { font-size: 13px; }
   .hero-composition .hero-copy .hero-headline { font-size: clamp(34px, 8.5vw, 54px); }
   .hero-copy > .eyebrow { letter-spacing: .05em; }
   .interior-page .site-page-hero h1 { font-size: clamp(32px, 7.8vw, 52px) !important; line-height: 1.14 !important; }
@@ -112,6 +146,8 @@
   .process-tabs > button { padding-inline: 8px; gap: 6px; }
   .footer-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .footer-brand, .footer-contact { grid-column: 1 / -1; }
+  .site-nav > a, .site-nav-services > button { font-size: 14px; padding-inline: 14px; }
+  .site-services-dropdown { width: 100%; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
