@@ -1,12 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 export default function FixedBackgroundLayers() {
     const noMotion = useReducedMotion() === true;
-    const [isTouch, setIsTouch] = useState(false);
-    useEffect(() => {
-        setIsTouch(window.matchMedia("(pointer: coarse)").matches);
-    }, []);
+    const isTouch = useMediaQuery("(pointer: coarse)");
     const { scrollY } = useScroll();
     // Layer 1 — large butterscotch blob, top-right, very slow drift
     const y1 = useTransform(scrollY, [0, 3000], ["0px", "-75px"]);

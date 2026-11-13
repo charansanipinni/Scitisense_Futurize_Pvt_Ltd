@@ -1,10 +1,12 @@
-/* The footer shares the page surface, with raised dark action buttons. */
+/* One opaque surface keeps the shared footer identical on every route. */
 .reference-footer {
+  position: relative;
+  isolation: isolate;
   width: 100%;
   margin: 0;
   padding-bottom: max(1rem, env(safe-area-inset-bottom));
   color: var(--brand-ink);
-  background: transparent;
+  background: var(--brand-page);
 }
 
 .reference-footer-surface {

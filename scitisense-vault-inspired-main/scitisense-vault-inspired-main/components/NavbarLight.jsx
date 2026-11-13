@@ -8,6 +8,10 @@ import { navigationLinks, serviceLinks } from "@/lib/site-links";
 
 export default function NavbarLight() {
   const pathname = usePathname();
+  return <Navigation key={pathname} pathname={pathname} />;
+}
+
+function Navigation({ pathname }) {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [careersOpen, setCareersOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,12 +49,6 @@ export default function NavbarLight() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
-
-  useEffect(() => {
-    setMenuOpen(false);
-    setServicesOpen(false);
-    setCareersOpen(false);
-  }, [pathname]);
 
   const closeMenus = () => { setMenuOpen(false); setServicesOpen(false); setCareersOpen(false); };
 

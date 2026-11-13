@@ -1,21 +1,13 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { useMediaQuery, useMounted } from "@/hooks/useMediaQuery";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 export default function ParallaxSection({ children, speed = 0.3, className, style, }) {
     const noMotion = useReducedMotion() === true;
     // Disable on touch/pointer-coarse devices
-    const [isTouch, setIsTouch] = useState(false);
-    useEffect(() => {
-        setIsTouch(window.matchMedia("(pointer: coarse)").matches);
-    }, []);
+    const isTouch = useMediaQuery("(pointer: coarse)");
     const ref = useRef(null);
-    const [ready, setReady] = useState(false);
-    // Defer useScroll target until the ref is confirmed populated client-side.
-    // Passing undefined avoids the "ref not hydrated" error during SSR.
-    useEffect(() => {
-        if (ref.current)
-            setReady(true);
-    }, []);
+    const ready = useMounted();
     const { scrollYProgress } = useScroll({
         target: ready ? ref : undefined,
         offset: ["start end", "end start"],

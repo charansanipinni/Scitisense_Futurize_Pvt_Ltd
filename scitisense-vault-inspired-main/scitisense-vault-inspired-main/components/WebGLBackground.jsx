@@ -79,7 +79,7 @@ function ParticleField() {
     // Live position buffer (written into every frame during morph)
     const current = useMemo(() => new Float32Array(shapes[0]), [shapes]);
     // Colors (static)
-    const colors = useMemo(makeColors, []);
+    const colors = useMemo(() => makeColors(), []);
     // Pre-allocated line position buffer
     const lineBuffer = useMemo(() => new Float32Array(MAX_LINES * 6), []);
     // Three.js geometries — created once
@@ -97,6 +97,8 @@ function ParticleField() {
     }, [lineBuffer]);
     // Refs for scene objects
     const groupRef = useRef(null);
+    const pointsRef = useRef(null);
+    const linesRef = useRef(null);
     // Mutable state stored in refs (no re-renders)
     const mouse = useRef({ x: 0, y: 0 });
     const autoRotY = useRef(0);
@@ -122,6 +124,11 @@ function ParticleField() {
     useFrame((_state, delta) => {
         if (!groupRef.current)
             return;
+        // Three.js owns these mutable GPU buffers; update them through scene refs.
+        const pointsGeo = pointsRef.current.geometry;
+        const linesGeo = linesRef.current.geometry;
+        const current = pointsGeo.attributes.position.array;
+        const lineBuffer = linesGeo.attributes.position.array;
         frameRef.current++;
         const m = morph.current;
         m.elapsed += delta;
@@ -187,10 +194,10 @@ function ParticleField() {
         g.rotation.x += (targetX - g.rotation.x) * 0.008;
     });
     return (<group ref={groupRef}>
-      <points geometry={pointsGeo}>
+      <points ref={pointsRef} geometry={pointsGeo}>
         <pointsMaterial size={0.018} vertexColors transparent opacity={0.35} sizeAttenuation/>
       </points>
-      <lineSegments geometry={linesGeo}>
+      <lineSegments ref={linesRef} geometry={linesGeo}>
         <lineBasicMaterial color="#00E5C0" transparent opacity={0.03}/>
       </lineSegments>
     </group>);

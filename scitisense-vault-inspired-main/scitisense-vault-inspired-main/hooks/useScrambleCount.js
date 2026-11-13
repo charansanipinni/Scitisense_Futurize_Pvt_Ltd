@@ -9,14 +9,7 @@ import { useEffect, useState } from "react";
 export function useScrambleCount(target, inView, noMotion, duration = 2000) {
     const [display, setDisplay] = useState(noMotion ? String(target) : "0");
     useEffect(() => {
-        if (noMotion) {
-            setDisplay(String(target));
-            return;
-        }
-        if (!inView) {
-            setDisplay("0");
-            return;
-        }
+        if (noMotion || !inView) return;
         const startMs = performance.now();
         const lo = Math.max(0, Math.floor(target * 0.7));
         const hi = Math.ceil(target * 1.3);
@@ -50,5 +43,5 @@ export function useScrambleCount(target, inView, noMotion, duration = 2000) {
         }, 80);
         return () => clearInterval(id);
     }, [inView, target, duration, noMotion]);
-    return display;
+    return noMotion ? String(target) : !inView ? "0" : display;
 }

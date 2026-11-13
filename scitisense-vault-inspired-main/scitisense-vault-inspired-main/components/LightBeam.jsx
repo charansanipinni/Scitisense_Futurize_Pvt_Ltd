@@ -1,13 +1,13 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
+import { useMounted } from "@/hooks/useMediaQuery";
 import { motion, useInView, useReducedMotion } from "motion/react";
 export default function LightBeam({ color = "#00E5C0", position = "center", intensity = 0.4, }) {
     const noMotion = useReducedMotion() === true;
-    const [isMounted, setIsMounted] = useState(false);
+    const isMounted = useMounted();
     const ref = useRef(null);
     // Trigger when the 0-height boundary marker is in the middle 40% of viewport
     const inView = useInView(ref, { margin: "-30% 0px -30% 0px", once: false });
-    useEffect(() => setIsMounted(true), []);
     // Render nothing until client has mounted — avoids IntersectionObserver SSR issues
     if (!isMounted || noMotion)
         return null;

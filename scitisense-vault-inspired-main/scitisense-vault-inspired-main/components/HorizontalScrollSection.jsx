@@ -1,5 +1,6 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
+import { useMediaQuery, useMounted } from "@/hooks/useMediaQuery";
 import { motion, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring, } from "motion/react";
 import { ArrowRight, MessageSquare, Brain, Cpu, Search, Bot, Workflow, Database, ShieldCheck, Layers, Network, Repeat, GitBranch, HeartPulse, Leaf, TrendingUp, Smile, Wifi, Activity, Zap, Cloud, GitMerge, Server, Lock, } from "lucide-react";
 import RevealBlock from "@/components/RevealBlock";
@@ -123,27 +124,13 @@ export default function HorizontalScrollSection({ id, label, heading, descriptio
     const isNavy = background === "navy";
     const mag = useMagnetic();
     // SSR-safe mobile detection — default to mobile (grid) until hydrated
-    const [isDesktop, setIsDesktop] = useState(false);
-    useEffect(() => {
-        const mql = window.matchMedia("(min-width: 768px)");
-        setIsDesktop(mql.matches);
-        const handler = (e) => setIsDesktop(e.matches);
-        mql.addEventListener("change", handler);
-        return () => mql.removeEventListener("change", handler);
-    }, []);
+    const isDesktop = useMediaQuery("(min-width: 768px)");
     const allItems = [...items, ...(items2 ?? [])];
     const headingColor = isNavy ? "#ffffff" : "#0D1117";
     const bodyColor = isNavy ? "rgba(255,255,255,0.70)" : "rgba(255,255,255,0.55)";
     const bg = isNavy ? "#0D1117" : "#0D1117";
     const outerRef = useRef(null);
-    const [ready, setReady] = useState(false);
-    // Defer target ref until DOM is committed — avoids "ref not hydrated" during SSR.
-    // Note: isDesktop state already covers the first render (shows mobile grid),
-    // but useScroll must also be guarded since it's called unconditionally.
-    useEffect(() => {
-        if (outerRef.current)
-            setReady(true);
-    }, [isDesktop]); // re-run when isDesktop flips so desktop render also gets ready
+    const ready = useMounted();
     const { scrollYProgress } = useScroll({
         target: ready ? outerRef : undefined,
         offset: ["start start", "end start"],
