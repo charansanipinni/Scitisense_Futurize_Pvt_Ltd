@@ -26,14 +26,18 @@
 }
 
 .corporate-site-header .company-brand-name {
+  font-size: clamp(18px, 2vw, 22px);
   color: var(--brand-on-navy);
 }
 .corporate-site-header .company-brand-legal {
+  font-size: 13px;
   color: #bcd5e8;
 }
 .corporate-site-header .company-brand > img {
+  width: clamp(48px, 5vw, 56px);
+  height: auto;
   padding: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   background: transparent;
 }
 

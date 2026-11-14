@@ -28,8 +28,8 @@
   pointer-events: none;
   contain: strict;
   background:
-    radial-gradient(ellipse at 75% 40%, var(--hero-wave-one), transparent 65%),
-    linear-gradient(var(--hero-wave-angle), #08121e 25%, var(--hero-wave-two));
+    radial-gradient(ellipse at 78% 48%, color-mix(in srgb, var(--hero-wave-one) 22%, transparent), transparent 55%),
+    #08121e;
 }
 
 .hero-animated-background::after {
@@ -120,4 +120,41 @@
   .about-hero .hero-animated-background::after {
     background: linear-gradient(90deg, #08121ed9, #08121e99);
   }
+}
+
+/* Fine research geometry replaces the diffuse aurora; copy stays in the foreground. */
+.research-grid {
+  position: absolute;
+  inset: 0;
+  opacity: .14;
+  background-image: linear-gradient(#8fbcd52b 1px, transparent 1px), linear-gradient(90deg, #8fbcd52b 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(90deg, transparent 30%, #000);
+}
+.research-network {
+  position: absolute;
+  width: min(64vw, 900px);
+  height: auto;
+  right: -2%;
+  top: 50%;
+  transform: translateY(-44%);
+  stroke: color-mix(in srgb, var(--hero-wave-one) 50%, #bcd5e8);
+  stroke-width: 1;
+}
+.research-orbit { transform-origin: 400px 400px; animation: research-orbit 100s linear infinite; }
+.research-orbit > circle, .research-orbit > ellipse { opacity: .4; }
+.research-orbit > path { opacity: .55; }
+.research-node { animation: research-breathe 6s ease-in-out infinite; }
+.research-node-halo { fill: var(--hero-wave-two); fill-opacity: .12; stroke-opacity: .3; }
+.research-node-core { fill: #d2edf8; stroke: none; }
+.research-outer-ring { opacity: .35; }
+.research-axis { opacity: .55; }
+@keyframes research-orbit { to { transform: rotate(360deg); } }
+@keyframes research-breathe { 50% { opacity: .45; } }
+@media (max-width: 767px) {
+  .research-network { width: 110vw; right: -48%; opacity: .45; }
+  .research-grid { background-size: 44px 44px; opacity: .1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .research-orbit, .research-node { animation: none; }
 }

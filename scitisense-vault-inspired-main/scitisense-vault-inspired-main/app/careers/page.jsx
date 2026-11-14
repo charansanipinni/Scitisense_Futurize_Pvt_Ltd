@@ -55,7 +55,7 @@ export default function CareersPage() {
         </div>
       </section>
       <nav className={styles.sectionNav} aria-label="Careers sections">
-        <a href="#why-join">Why Join Us</a><a href="#domains">Research Domains</a><a href="#opportunities">Opportunities</a><a href="#faq">FAQ</a><InterestLink>Express Interest <ArrowUpRight size={15} /></InterestLink>
+        <a href="#why-join">Why Join Us</a><a href="#domains">Research Domains</a><a href="#opportunities">Opportunities</a><a href="#internships">Internships</a><a href="#faq">FAQ</a><InterestLink>Express Interest <ArrowUpRight size={15} /></InterestLink>
       </nav>
       <section id="why-join" className={`${styles.section} ${styles.tinted}`}>
         <div className={styles.container}>
@@ -69,6 +69,16 @@ export default function CareersPage() {
           <div className={styles.cards}>{domains.map(([icon, title, copy]) => <article className={styles.card} key={title}><div className={styles.icon} aria-hidden="true">{icon}</div><h3>{title}</h3><p>{copy}</p></article>)}</div>
         </div>
       </section>
+      <section id="internships" className={`${styles.section} ${styles.tinted}`} aria-labelledby="internships-title">
+        <div className={styles.container}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.eyebrow}>Learn through practical work</span>
+            <h2 id="internships-title">Internships at Scitisense</h2>
+            <p>Explore applied AI, embedded systems and research through practical project work. View the program and contact us to confirm availability, mentorship and requirements.</p>
+            <div className={styles.actions}><Link className={styles.primary} href="/careers/internships">Explore our internship program <ArrowUpRight size={18} /></Link></div>
+          </div>
+        </div>
+      </section>
       <CareerInterest />
       <section id="faq" className={`${styles.section} ${styles.tinted}`}>
         <div className={`${styles.container} ${styles.faq}`}>
@@ -77,7 +87,7 @@ export default function CareersPage() {
         </div>
       </section>
       <section className={styles.section}>
-        <div className={styles.container}><div className={styles.cta}><span className={styles.eyebrow}>Build · Research · Innovate</span><h2>Your ideas could shape what comes next.</h2><p>Explore research-oriented career pathways and share your interests with Scitisense Futurize.</p><div className={styles.actions}><InterestLink className={styles.primary}>Express Your Interest <ArrowUpRight size={18} /></InterestLink><Link className={styles.outline} href="/careers/internships">Explore our internship program <ArrowUpRight size={18} /></Link></div></div></div>
+        <div className={styles.container}><div className={styles.cta}><span className={styles.eyebrow}>Build · Research · Innovate</span><h2>Your ideas could shape what comes next.</h2><p>Explore research-oriented career pathways and share your interests with Scitisense Futurize.</p><div className={styles.actions}><InterestLink className={styles.primary}>Express Your Interest <ArrowUpRight size={18} /></InterestLink></div></div></div>
       </section>
     </main>
   );

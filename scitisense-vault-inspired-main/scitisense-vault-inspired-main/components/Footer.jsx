@@ -58,7 +58,8 @@ const linkColumns = [
     title: "Company",
     links: [
       ["About us", "/aboutus"],
-      ["Careers", "/careers"],
+      ["Services", "/services"],
+      ["Career overview", "/careers"],
       ["Contact", "/contact"],
     ],
   },
@@ -68,7 +69,6 @@ const linkColumns = [
     links: [
       ["Support", "/contact"],
       ["FAQ", "/#faq"],
-      ["Internships", "/careers/internships"],
     ],
   },
   { title: "Legal", links: legalLinks },

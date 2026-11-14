@@ -2,7 +2,7 @@
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Hallway from "./framer/Hallway";
 import { BRAND } from "@/lib/theme";
 const mediaQuery = "(min-width: 1100px) and (min-height: 700px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
@@ -41,10 +41,6 @@ export default function HallwayExperience() {
         return () => observer.disconnect();
     }, []);
     return <section className="hallway-experience" id="research-gallery" aria-label="Explore Scitisense research">
-    <div className="hallway-toolbar">
-      <span>RESEARCH, IN PERSPECTIVE</span>
-      <a href="#after-hallway">Skip gallery <ArrowDown size={14} aria-hidden="true"/></a>
-    </div>
     <div className="hallway-live">
       {immersive && <Hallway cards={cards} intro={{ heading: "Step into possibility.", text: "Explore three ways our research connects scientific thinking to the world around us.", label1: "", link1: "", label2: "Continue to the website", link2: "#after-hallway" }} ending={{ title: "From possibility to progress.", text: "A question becomes a prototype. A prototype becomes something people can use.", label: "", link: "", image: { src: "/framer/hallway-horizon.svg", alt: "An abstract pathway linking research, prototyping and real-world impact." } }} colors={{ intro: BRAND.page, captions: BRAND.page, light: BRAND.hero, ending: BRAND.ink }} motion={{ focus: 38, parallax: 12 }} layout={{ spread: 105, tilt: 7 }} fonts={{ heading: { fontFamily: "var(--font-geist-sans), Arial, sans-serif", fontSize: 52, fontWeight: 500, letterSpacing: "-0.04em", lineHeight: "1.06em" }, text: { fontFamily: "var(--font-geist-sans), Arial, sans-serif", fontSize: 17, fontWeight: 400, lineHeight: "1.7em" } }} styling={{ radius: "8px", shadow: "0 20px 55px -25px rgba(0, 10, 25, 0.55)" }} style={{ width: "100%", height: "300svh" }}/>}
     </div>

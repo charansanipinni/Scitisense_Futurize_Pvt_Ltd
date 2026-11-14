@@ -1,8 +1,5 @@
 ﻿"use client";
-import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-
-const AuroraFlow = dynamic(() => import("./framer/AuroraFlow"), { ssr: false });
 
 const heroBackgrounds = {
   "/": {
@@ -148,15 +145,25 @@ export default function HeroBackground() {
         "--hero-wave-angle": `${variant.angle}deg`,
       }}
     >
-      <AuroraFlow
-        {...variant}
-        background="#08121e"
-        hover={30}
-        reach={260}
-        resolution={25}
-        reduceMotion
-        pauseOffscreen
-      />
+      <div className="research-grid" />
+      <svg className="research-network" viewBox="0 0 800 800" fill="none" focusable="false">
+        <g className="research-orbit">
+          <circle cx="400" cy="400" r="286" />
+          <ellipse cx="400" cy="400" rx="286" ry="108" transform="rotate(-28 400 400)" />
+          <ellipse cx="400" cy="400" rx="286" ry="184" transform="rotate(-28 400 400)" />
+          <ellipse cx="400" cy="400" rx="108" ry="286" transform="rotate(-28 400 400)" />
+          <ellipse cx="400" cy="400" rx="184" ry="286" transform="rotate(-28 400 400)" />
+          <path d="M148 264 310 190 520 264 650 421 480 610 257 584 148 264ZM310 190 345 390 148 264M345 390 520 264 480 610 345 390 257 584M345 390 650 421" />
+          {[[148,264],[310,190],[520,264],[650,421],[480,610],[257,584],[345,390]].map(([cx, cy], index) => (
+            <g key={cx} className="research-node" style={{ animationDelay: `${index * -0.8}s` }}>
+              <circle cx={cx} cy={cy} r="12" className="research-node-halo" />
+              <circle cx={cx} cy={cy} r="4" className="research-node-core" />
+            </g>
+          ))}
+        </g>
+        <circle className="research-outer-ring" cx="400" cy="400" r="335" strokeDasharray="2 14" />
+        <path className="research-axis" d="M400 40V95M400 705V760M40 400H95M705 400H760" />
+      </svg>
     </div>
   );
 }

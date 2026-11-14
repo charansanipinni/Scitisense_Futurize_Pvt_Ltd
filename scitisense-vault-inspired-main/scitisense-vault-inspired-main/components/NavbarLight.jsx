@@ -71,8 +71,7 @@ function Navigation({ pathname }) {
           Careers <ChevronDown size={15} aria-hidden="true" className={careersOpen ? "is-open" : ""}/>
         </button>
         <div id="careers-dropdown" className="site-services-dropdown" role="group" aria-label="Choose a career opportunity" hidden={!careersOpen}>
-          <Link href="/careers" onClick={closeMenus}>Careers overview</Link>
-          <Link href="/careers/internships" onClick={closeMenus}>Internships</Link>
+          <Link href="/careers" onClick={closeMenus}>Career overview</Link>
         </div>
       </div>
       <Link href="/contact" aria-current={pathname === "/contact" ? "page" : undefined} onClick={closeMenus}>Contact</Link>
