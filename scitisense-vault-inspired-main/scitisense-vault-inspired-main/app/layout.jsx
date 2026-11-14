@@ -17,6 +17,7 @@ import PageTransition from "@/components/PageTransition";
 import SiteEffects from "@/components/SiteEffects";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import SiteUpdateNotice from "@/components/SiteUpdateNotice";
 const geistSans = localFont({
     src: "./fonts/geist-latin.woff2",
     variable: "--font-geist-sans",
@@ -90,6 +91,7 @@ export default function RootLayout({ children, }) {
         </SmoothScrollProvider>
         <SiteEffects />
         <WhatsAppButton />
+        <SiteUpdateNotice />
       </body>
     </html>);
 }

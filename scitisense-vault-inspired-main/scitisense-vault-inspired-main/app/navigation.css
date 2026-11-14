@@ -144,6 +144,9 @@
     padding: 1rem;
     border-radius: 0.75rem;
     background: #08121ef5;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 }
 
